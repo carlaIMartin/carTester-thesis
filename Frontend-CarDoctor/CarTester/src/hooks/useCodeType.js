@@ -25,6 +25,7 @@ const useCodeType = () => {
        
         body: JSON.stringify(codeData),
       });
+
        
 
       if (!scanResponse.ok) {

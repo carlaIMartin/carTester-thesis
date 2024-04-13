@@ -19,6 +19,7 @@ public class Codes {
     private Date timestamp;
     private String type;
     private Boolean problem;
+    private String username;
 
 
 //    @Getter
@@ -44,9 +45,14 @@ public class Codes {
         if (newCode.getProblem() != null) {
             this.problem = newCode.getProblem();
         }
+        if (newCode.getUsername() != null) {
+            this.username = newCode.getUsername();
+        }
 
 
     }
+
+
 
 
 //    public void setCodeCategory(String codeCategory) {

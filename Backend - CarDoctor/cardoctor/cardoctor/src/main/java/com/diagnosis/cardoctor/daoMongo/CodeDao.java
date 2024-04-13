@@ -20,5 +20,7 @@ public interface CodeDao extends MongoRepository<Codes,String> {
     @Query(value="{ 'type' : ?0 }", fields="{ 'command' : 1, '_id' : 1, response_code : 1, description : 1, timestamp : 1, type : 1, problem : 1}")
     List<Codes> findByType(String type);
 
+    @Query(value="{'username' :  ?0}", fields="{ 'command' : 1, '_id' : 0,  response_code : 1, description : 1, timestamp : 1, type : 1, problem : 1}")
+    List<Codes> findByUsername();
 
 }

@@ -7,6 +7,7 @@ const CategoriesScreen = ({ navigation }) => {
   const [categoriesWithProblems, setCategoriesWithProblems] = useState([]);
 
   useEffect(() => {
+    // Function to fetch categories with problems
     const checkCategoriesForProblems = async () => {
       let tempCategoriesWithProblems = [];
 
@@ -14,9 +15,8 @@ const CategoriesScreen = ({ navigation }) => {
         try {
           const response = await fetch(`http://192.168.68.1:8080/codeType/${category}`);
           const data = await response.json();
+          const hasProblem = data.some(item => item.problem);
 
-          // const hasProblem = data.some(item => ["EGR_ERROR", "FUEL_INJECT_TIMING", "RPM", "SPEED"].includes(item.command) && item.problem);
-          const hasProblem = data.some(item =>  item.problem);
           if (hasProblem) {
             tempCategoriesWithProblems.push(category);
           }
@@ -31,29 +31,14 @@ const CategoriesScreen = ({ navigation }) => {
     checkCategoriesForProblems();
   }, []);
 
+  // Function to handle category press
   const handleCategoryPress = async (category) => {
-    let tempCategoriesWithProblems = [];
-    let dataWithProblems = [];
-
     console.log(`You clicked on ${category}`);
     try {
       const responseCategory = await fetch(`http://192.168.68.1:8080/codeType/${category}`);
       const data = await responseCategory.json();
 
-      // data.forEach(item => {
-      //   if (["EGR_ERROR", "FUEL_INJECT_TIMING", "RPM", "SPEED"].includes(item.command) && item.problem) {
-      //     dataWithProblems.push(item);
-          
-      //   }
-      // });
-
-      
-
-      // if (dataWithProblems.length > 0) {
-      //   console.log("DATA THAT HAS PROBLEMS:", dataWithProblems);
-      // }
-
-      navigation.navigate('ResultsScreen', { data });
+      navigation.navigate('ResultsScreen', { data, category }); // Pass data and category
     } catch (error) {
       console.error('There was an error fetching the data:', error);
     }
@@ -76,8 +61,6 @@ const CategoriesScreen = ({ navigation }) => {
     </View>
   );
 };
-
-
 
 const styles = StyleSheet.create({
   container: {

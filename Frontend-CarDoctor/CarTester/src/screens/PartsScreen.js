@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     button: {
         backgroundColor: '#695585', 
         padding: 10,
-        marginVertical: 5, // Added margin for separation between buttons
+        marginVertical: 5, //margin for separation between buttons
         borderRadius: 5,
     },
     buttonText: {

@@ -5,6 +5,7 @@ from bson import ObjectId
 from obd.utils import bytes_to_int
 from obd.protocols import ECU
 from obd import OBDCommand
+import sys
 
 
 # WORKSSSSSSS
@@ -150,7 +151,7 @@ try:
     if connection.is_connected():
         print(f"Connected to {port}")
 
-        clear_mongodb_collection()
+        # clear_mongodb_collection()
 
         
         parameters_to_query = [
@@ -170,6 +171,8 @@ try:
         ]
 
         # ----------------------- ADDING DATA TO DATABASE -----------------------
+
+        # The username field will be called in the future from the user's session (rest api gets the username from the frontend scan button hook)
         for parameter in parameters_to_query:
             response=connection.query(parameter)
             print( findCommandType(parameter.name) )
@@ -182,7 +185,8 @@ try:
                         "type": findCommandType(parameter.name),
                         #"unit": getattr(parameter, 'units', ''),  
                         "timestamp": datetime.datetime.utcnow(),
-                        "problem": determineIfError(parameter.name)
+                        "problem": determineIfError(parameter.name),
+                        "username": sys.argv[1]
                     }
                 insert_into_mongodb(data)
                 
