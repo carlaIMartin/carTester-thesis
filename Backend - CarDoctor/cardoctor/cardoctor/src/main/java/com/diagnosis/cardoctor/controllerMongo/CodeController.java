@@ -40,6 +40,15 @@ public class CodeController {
 
     }
 
+    @GetMapping("/codeTypeAndUser/{type}/{username}")
+    public List<Codes> getTypeAndUser(@PathVariable String type, @PathVariable String username) {
+
+        // return codeCategories.getAllCodesWithTemporaryInfo();
+        System.out.println(codeDao.findByTypeAndUser(type, username));
+        return codeDao.findByTypeAndUser(type, username);
+
+    }
+
     @GetMapping("/codeType/{type}")
     public List<Codes> getType(@PathVariable String type) {
 
@@ -48,6 +57,7 @@ public class CodeController {
         return codeDao.findByType(type);
 
     }
+
 
 //    @GetMapping("/items/{name}")
 //    public ResponseEntity<Codes> getItemByName(@PathVariable String name) {
@@ -64,6 +74,12 @@ public class CodeController {
         return codeDao.findAll();
     }
 
+@GetMapping("/codes/{username}")
+    public List<Codes> getCodesByUsername(@PathVariable String username) {
+        return codeDao.findByUsername(username);
+    }
+
+
     @GetMapping("/getCodeByCommand/{id}")
     public Optional<Codes> getCodeById(@PathVariable String id) {
         return codeDao.findById(id);
@@ -74,6 +90,11 @@ public class CodeController {
     @GetMapping("/getCodesByPart/{command}")
     public ResponseEntity<List<Map<String, Object>>> getRecommendedPart(@PathVariable String command) {
         return partsService.getRecommendedPart(command);
+
+    }
+    @GetMapping("/getCodesByPartAndUser/{command}/{username}")
+    public ResponseEntity<List<Map<String, Object>>> getRecommendedPart(@PathVariable String command, @PathVariable String username) {
+        return partsService.getRecommendedPartByUser(command, username);
     }
 
 }

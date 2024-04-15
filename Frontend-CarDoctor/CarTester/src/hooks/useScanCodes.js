@@ -22,7 +22,7 @@ const useScanCodes = () => {
       });
       
 
-      const codes = await fetch('http://192.168.68.1:8080/codes', {
+      const codes = await fetch(`http://192.168.68.1:8080/codes/${user.email}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

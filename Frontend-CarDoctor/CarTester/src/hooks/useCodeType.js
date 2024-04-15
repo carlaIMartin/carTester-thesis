@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { View, Text, Button, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import { auth } from '../config/firebaseConfig';
 
 const useCodeType = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
  
+  const user = auth.currentUser;
 
   const handleScanCodeSubmit = async (codeData) => {
     setIsSubmitting(true);
@@ -17,7 +19,7 @@ const useCodeType = () => {
         body: JSON.stringify(codeData),
       });
 
-      const codes = await fetch('http://192.168.68.1:8080/codes', {
+      const codes = await fetch(`http://192.168.68.1:8080/codes/${user.email}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

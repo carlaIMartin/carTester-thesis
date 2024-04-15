@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Button, TouchableOpacity } from 'react-native';
+import { auth } from '../config/firebaseConfig';
 
 const ResultsScreen = ({ route, navigation }) => {
   const { data } = route.params;
+  const user = auth.currentUser;
 
   useEffect(() => {
     console.log(data); // Log the data to ensure it's passed correctly
@@ -11,7 +13,7 @@ const ResultsScreen = ({ route, navigation }) => {
   const handlePartsPress = async (command) => {
     console.log(`You clicked on ${command}`);
     try {
-      const responseCommand = await fetch(`http://192.168.68.1:8080/getCodesByPart/${command}`);
+      const responseCommand = await fetch(`http://192.168.68.1:8080/getCodesByPartAndUser/${command}/${user.email}`);
       const part = await responseCommand.json();
       console.log('Part:', part);
       navigation.navigate('PartsScreen', { parts: part });
