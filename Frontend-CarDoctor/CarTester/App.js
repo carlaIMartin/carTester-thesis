@@ -15,8 +15,12 @@ import CategoriesScreen from './src/screens/CategoriesScreen';
 import ResultsScreen from './src/screens/ResultsScreen';
 import PartsScreen from './src/screens/PartsScreen';
 import WelcomeScreen from './src/screens/WelcomeScreen';
-import LoginScreen from './src/screens/LoginScreen'; // Make sure to create this
-import SignupScreen from './src/screens/SignupScreen'; // Make sure to create this
+import LoginScreen from './src/screens/LoginScreen'; 
+import SignupScreen from './src/screens/SignupScreen'; 
+import ChartScreen from './src/screens/ChartScreen'; 
+
+
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -44,6 +48,7 @@ const App = () => {
   const { container } = styles;
   const [user, setUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
+ 
 
   useEffect(() => {
     const auth = getAuth(app);
@@ -68,6 +73,7 @@ const App = () => {
       {user ? (
         <Tab.Navigator>
           <Tab.Screen name="Scan" component={ScanStack} />
+          <Tab.Screen name="Chart" component={ChartScreen} /> 
           {/* Add more Tab.Screen components for authenticated user navigation if needed */}
         </Tab.Navigator>
       ) : (

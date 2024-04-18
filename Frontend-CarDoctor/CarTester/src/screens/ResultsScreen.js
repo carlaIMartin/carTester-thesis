@@ -21,7 +21,7 @@ const ResultsScreen = ({ route, navigation }) => {
       console.error('There was an error fetching the data:', error);
     }
   };
-
+                                                                  
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>

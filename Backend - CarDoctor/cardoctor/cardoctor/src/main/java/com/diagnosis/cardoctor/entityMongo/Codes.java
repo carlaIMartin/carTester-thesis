@@ -20,11 +20,14 @@ public class Codes {
     private String type;
     private Boolean problem;
     private String username;
+    private int orderNumber;
 
 
 //    @Getter
 //    @Transient
 //    private String codeCategory;
+    // username getter
+
 
     public void updateCode(Codes newCode) {
         if (newCode.getCommand() != null) {
@@ -48,6 +51,9 @@ public class Codes {
         if (newCode.getUsername() != null) {
             this.username = newCode.getUsername();
         }
+        if (newCode.getOrderNumber() != 0) {
+            this.orderNumber = newCode.getOrderNumber();
+        }
 
 
     }
@@ -55,8 +61,14 @@ public class Codes {
 
 
 
-//    public void setCodeCategory(String codeCategory) {
-//        this.codeCategory = codeCategory;
-//    }
+
+    public void setOrderNumber(int orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    //create delete function that deletes the element from the db
+
+
+
 
 }

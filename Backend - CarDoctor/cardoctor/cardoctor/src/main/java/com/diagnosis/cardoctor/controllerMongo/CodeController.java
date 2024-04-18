@@ -76,7 +76,7 @@ public class CodeController {
 
 @GetMapping("/codes/{username}")
     public List<Codes> getCodesByUsername(@PathVariable String username) {
-        return codeDao.findByUsername(username);
+        return codeDao.findAllByUsername(username);
     }
 
 
@@ -87,14 +87,19 @@ public class CodeController {
 
 
 
-    @GetMapping("/getCodesByPart/{command}")
-    public ResponseEntity<List<Map<String, Object>>> getRecommendedPart(@PathVariable String command) {
-        return partsService.getRecommendedPart(command);
-
-    }
+//    @GetMapping("/getCodesByPart/{command}")
+//    public ResponseEntity<List<Map<String, Object>>> getRecommendedPart(@PathVariable String command) {
+//        return partsService.getRecommendedPart(command);
+//
+//    }
     @GetMapping("/getCodesByPartAndUser/{command}/{username}")
     public ResponseEntity<List<Map<String, Object>>> getRecommendedPart(@PathVariable String command, @PathVariable String username) {
         return partsService.getRecommendedPartByUser(command, username);
+    }
+
+    @GetMapping("/getCodesByCommandAndUser/{command}/{username}")
+    public List<Codes> getCodesByCommandAndUser(@PathVariable String command, @PathVariable String username) {
+        return codeDao.findByCommandAndUser(command, username);
     }
 
 }
