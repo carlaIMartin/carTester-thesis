@@ -32,6 +32,7 @@ const ScanStack = () => (
     <Stack.Screen name="CategoriesScreen" component={CategoriesScreen} />
     <Stack.Screen name="ResultsScreen" component={ResultsScreen} />
     <Stack.Screen name="PartsScreen" component={PartsScreen} />
+    <Stack.Screen name="ChartScreen" component={ChartScreen} />
   </Stack.Navigator>
 );
 
@@ -73,7 +74,8 @@ const App = () => {
       {user ? (
         <Tab.Navigator>
           <Tab.Screen name="Scan" component={ScanStack} />
-          <Tab.Screen name="Chart" component={ChartScreen} /> 
+          
+          
           {/* Add more Tab.Screen components for authenticated user navigation if needed */}
         </Tab.Navigator>
       ) : (

@@ -3,6 +3,8 @@ import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from 'rea
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebaseConfig'; // Make sure this path is correct
 import useScanCodes from '../hooks/useScanCodes';
+import { useNavigation } from '@react-navigation/native';
+
 
 const Scan = ({ navigation }) => {
   const { result, handleScanCodeSubmit, isSubmitting, hasBeenSubmitted } = useScanCodes();
@@ -15,6 +17,8 @@ const Scan = ({ navigation }) => {
     navigation.navigate('CategoriesScreen');
   };
 
+
+
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -26,6 +30,14 @@ const Scan = ({ navigation }) => {
     }
   };
 
+  const handleCharts = async () => {
+    navigation.navigate('ChartScreen');
+  }
+
+  const handleCategoryPress = async () => {
+    navigation.navigate('CategoriesScreen');
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
@@ -33,12 +45,27 @@ const Scan = ({ navigation }) => {
           <ActivityIndicator size="large" color="#841584" />
         ) : (
           <>
-            <TouchableOpacity onPress={handlePress} style={styles.touchableButton}>
-              <Text style={styles.buttonText}>SCAN NOW</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleLogout} style={[styles.touchableButton, styles.logoutButton]}>
-              <Text style={styles.buttonText}>LOGOUT</Text>
-            </TouchableOpacity>
+            <View style={styles.buttonWrapper}>
+              <TouchableOpacity onPress={handlePress} style={styles.touchableButton}>
+                <Text style={styles.buttonText}>SCAN NOW</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonWrapper}>
+              <TouchableOpacity onPress={handleCharts} style={styles.touchableButton}>
+                <Text style={styles.buttonText}>SEE STATISTICS</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonWrapper}>
+              <TouchableOpacity onPress={handleCategoryPress} style={[styles.touchableButton]}>
+                <Text style={styles.buttonText}>CATEGORIES</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.buttonWrapper}>
+              <TouchableOpacity onPress={handleLogout} style={[styles.touchableButton, styles.logoutButton]}>
+                <Text style={styles.buttonText}>LOGOUT</Text>
+              </TouchableOpacity>
+            </View>
+            
           </>
         )}
       </View>
@@ -54,12 +81,13 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     width: '80%', 
-    height: 120, // Adjusted to accommodate both buttons
-    justifyContent: 'space-around', // Added for spacing between buttons
+  },
+  buttonWrapper: {
+    marginVertical: 10, // This will create space between buttons
   },
   touchableButton: {
     width: '100%',
-    height: '45%', // Adjusted to fit two buttons
+    height: 50, // Adjusted to fit two buttons
     backgroundColor: '#841584', 
     justifyContent: 'center',
     alignItems: 'center', 
