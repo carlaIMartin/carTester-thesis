@@ -1,14 +1,28 @@
-import React, { useEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, Button, TouchableOpacity } from 'react-native';
 import { auth } from '../config/firebaseConfig';
 
 const ResultsScreen = ({ route, navigation }) => {
   const { data } = route.params;
   const user = auth.currentUser;
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
-    console.log(data); // Log the data to ensure it's passed correctly
+    console.log(data); 
+    filterDataByHighestOrderNumber();
   }, [data]);
+
+  const filterDataByHighestOrderNumber = () => {
+    const highestOrderItems = new Map();
+
+    data.forEach(item => {
+      if (!highestOrderItems.has(item.command) || highestOrderItems.get(item.command).orderNumber < item.orderNumber) {
+        highestOrderItems.set(item.command, item);
+      }
+    });
+
+    setFilteredData([...highestOrderItems.values()]);
+  };
 
   const handlePartsPress = async (command) => {
     console.log(`You clicked on ${command}`);
@@ -25,7 +39,7 @@ const ResultsScreen = ({ route, navigation }) => {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        {data.map((item, index) => (
+        {filteredData.map((item, index) => (
           <View key={index} 
             style={[
               styles.itemContainer, 
@@ -37,7 +51,8 @@ const ResultsScreen = ({ route, navigation }) => {
             <Text style={styles.itemText}>Category: {item.category}</Text>
             <Text style={styles.itemText}>Description: {item.description}</Text>
             <Text style={styles.itemText}>Response Code: {item.response_code}</Text>
-             
+            <Text style={styles.itemText}>Order Number: {item.orderNumber}</Text>
+
             {item.problem && (
               <TouchableOpacity
                 style={styles.button}
@@ -51,7 +66,6 @@ const ResultsScreen = ({ route, navigation }) => {
       </ScrollView>
     </View>
   );
-  
 };
 
 const styles = StyleSheet.create({
@@ -73,13 +87,12 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 5, 
     borderRadius: 5,
-},
+  },
   buttonText: {
     color: '#ffffff',
     textAlign: 'center',
     fontSize: 20,
   },
-  
   problemContainer: {
     backgroundColor: '#ffcccc',
   },

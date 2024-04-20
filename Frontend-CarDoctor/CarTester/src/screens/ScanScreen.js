@@ -83,18 +83,18 @@ const styles = StyleSheet.create({
     width: '80%', 
   },
   buttonWrapper: {
-    marginVertical: 10, // This will create space between buttons
+    marginVertical: 10, 
   },
   touchableButton: {
     width: '100%',
-    height: 50, // Adjusted to fit two buttons
+    height: 50, 
     backgroundColor: '#841584', 
     justifyContent: 'center',
     alignItems: 'center', 
     borderRadius: 30, 
   },
   logoutButton: {
-    backgroundColor: '#FF5733', // Different color for logout button
+    backgroundColor: '#FF5733', 
   },
   buttonText: {
     color: '#FFFFFF', 
