@@ -122,6 +122,59 @@ misfire = OBDCommand("MONITOR_MISFIRE_CYLINDER_2", \
                True)
 
 
+heatedCatatlyst = OBDCommand("MONITOR_HEATED_CATALYST_B1", \
+                "MONITOR_HEATED_CATALYST_B1", \
+                b"06a0", \
+                0, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+
+shortFuelTrim2 = OBDCommand("SHORT_FUEL_TRIM_2", \
+               "SHORT TERM FUEL TRIM 2", \
+               b"0108", \
+               1, \
+               decoder, \
+               ECU.ENGINE, \
+               True)
+
+longFuelTrim2 = OBDCommand("LONG_FUEL_TRIM_2", \
+                "LONG TERM FUEL TRIM 2", \
+                b"0109", \
+                1, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+
+fuelPressure = OBDCommand("FUEL_PRESSURE", \
+                "FUEL PRESSURE", \
+                b"010A", \
+                1, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+
+intakePressure = OBDCommand("INTAKE_PRESSURE", \
+                "INTAKE PRESSURE", \
+                b"010B", \
+                1, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+
+fuelRailPressureDirect = OBDCommand("FUEL_RAIL_PRESSURE_DIRECT", \
+                "FUEL RAIL PRESSURE DIRECT", \
+                b"0122", \
+                2, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+
+
+
+
+
+
 #print(catalyst_temp)
 
 
@@ -137,12 +190,22 @@ connection.supported_commands.add(catalyst_temp)
 connection.supported_commands.add(egr_err)
 connection.supported_commands.add(fuel_inject_timing)
 connection.supported_commands.add(obd.commands.MONITOR_MISFIRE_CYLINDER_2)
+connection.supported_commands.add(heatedCatatlyst)
+connection.supported_commands.add(shortFuelTrim2)
+connection.supported_commands.add(longFuelTrim2)
+connection.supported_commands.add(fuelPressure)
+connection.supported_commands.add(intakePressure)
+connection.supported_commands.add(fuelRailPressureDirect)
 #connection.supported_commands.add(obd.commands.MONITOR_MISFIRE_CYLINDER_2)
 
+
+print(query_obd_parameter(shortFuelTrim2))
 
 #PRINTING COMMANDS 
 #print(query_obd_parameter(egr_err))
 print(query_obd_parameter(catalyst_temp))
+
+
 
  ############ --------------------- GATHERING DATA FUNCTIONALITY ----------------- ###############
 
@@ -155,20 +218,92 @@ try:
 
         
         parameters_to_query = [
-            obd.commands.SPEED,
-            obd.commands.RPM,
-            obd.commands.COOLANT_TEMP,
+            
+            
             egr_err,
             #obd.commands.EGR_ERROR,
             #obd.commands.EGR_ERROR,    #SO, IF I DEFINED A COMMAND, THE NEW OLD STARTS WORKING TOO BUT INCORRECTLY 
             #obd.commands.FUEL_INJECT_TIMING,
             fuel_inject_timing,
-            obd.commands.MONITOR_HEATED_CATALYST_B1,
+            heatedCatatlyst,
             obd.commands.MONITOR_MISFIRE_CYLINDER_2,
+
+            obd.commands.FUEL_STATUS,
+            obd.commands.ENGINE_LOAD,
+            obd.commands.COOLANT_TEMP,
+            obd.commands.SHORT_FUEL_TRIM_1,
+            obd.commands.LONG_FUEL_TRIM_1,
+            shortFuelTrim2,
+            longFuelTrim2,
+            #obd.commands.FUEL_PRESSURE,
+            fuelPressure,
+            #obd.commands.INTAKE_PRESSURE,
+            intakePressure,
+            obd.commands.RPM,
+            obd.commands.SPEED,
+            obd.commands.TIMING_ADVANCE,
+            obd.commands.INTAKE_TEMP,
+            obd.commands.MAF,
+            obd.commands.THROTTLE_POS,
+            obd.commands.RUN_TIME,
+            obd.commands.DISTANCE_W_MIL,
+            obd.commands.FUEL_RAIL_PRESSURE_VAC,
+            #obd.commands.FUEL_RAIL_PRESSURE_DIRECT,
+            fuelRailPressureDirect,
+            obd.commands.O2_B1S1,
             obd.commands.O2_B1S2,
-            obd.commands.INTAKE_TEMP
+            obd.commands.O2_B1S3,
+            obd.commands.O2_B1S4,
+            obd.commands.O2_B2S1,
+            obd.commands.O2_B2S2,
+            obd.commands.O2_B2S3,
+            obd.commands.O2_B2S4,
+            obd.commands.OBD_COMPLIANCE,
+            obd.commands.O2_SENSORS,
+            obd.commands.FUEL_RAIL_PRESSURE_VAC,
+            obd.commands.FUEL_RAIL_PRESSURE_DIRECT,
+            obd.commands.COMMANDED_EGR,
+            #obd.commands.EGR_ERROR,
+            #obd.commands.COMMANDED_EVAPORATIVE_PURGE,
+            obd.commands.EVAPORATIVE_PURGE,
+            #obd.commands.COMMANDED_THROTTLE,
+            obd.commands.DISTANCE_SINCE_DTC_CLEAR,
+            obd.commands.EVAP_VAPOR_PRESSURE,
+            obd.commands.BAROMETRIC_PRESSURE,
+            obd.commands.O2_S1_WR_CURRENT,
+            obd.commands.CATALYST_TEMP_B1S1,
+            obd.commands.PIDS_C,
+            obd.commands.CONTROL_MODULE_VOLTAGE,
+            obd.commands.ABSOLUTE_LOAD,
+            obd.commands.COMMANDED_EQUIV_RATIO,
+            obd.commands.RELATIVE_THROTTLE_POS,
+            obd.commands.AMBIANT_AIR_TEMP,
+            obd.commands.THROTTLE_POS_B,
+            obd.commands.ACCELERATOR_POS_D,
+            obd.commands.ACCELERATOR_POS_E,
+            obd.commands.THROTTLE_ACTUATOR,
+            obd.commands.RUN_TIME_MIL,
+            obd.commands.TIME_SINCE_DTC_CLEARED,
+            obd.commands.FUEL_TYPE,
+            obd.commands.FUEL_INJECT_TIMING
+            
+            
+            # for command in commands:
+            #     obd.commands.command
+
+
+
+
             
         ]
+
+        # parameters_to_query=[]
+
+        # commands = [ FUEL_STATUS, ENGINE_LOAD, COOLANT_TEMP, SHORT_FUEL_TRIM_1, LONG_FUEL_TRIM_1, SHORT_FUEL_TRIM_2, LONG_FUEL_TRIM_2, FUEL_PRESSURE, INTAKE_PRESSURE, RPM, SPEED, TIMING_ADVANCE, INTAKE_TEMP, MAF, THROTTLE_POS, AIR_STATUS, O2_SENSORS, O2_B1S1, O2_B1S2, O2_B1S3, O2_B1S4, O2_B2S1, O2_B2S2, O2_B2S3, O2_B2S4, OBD_COMPLIANCE, O2_SENSORS_ALT, AUX_INPUT_STATUS, RUN_TIME, PIDS_B, DISTANCE_W_MIL, FUEL_RAIL_PRESSURE_VAC, FUEL_RAIL_PRESSURE_DIRECT, O2_S1_WR_VOLTAGE, O2_S2_WR_VOLTAGE, O2_S3_WR_VOLTAGE, O2_S4_WR_VOLTAGE, O2_S5_WR_VOLTAGE, O2_S6_WR_VOLTAGE, O2_S7_WR_VOLTAGE, O2_S8_WR_VOLTAGE, COMMANDED_EGR, EGR_ERROR, EVAPORATIVE_PURGE, FUEL_LEVEL, WARMUPS_SINCE_DTC_CLEAR, DISTANCE_SINCE_DTC_CLEAR, EVAP_VAPOR_PRESSURE, BAROMETRIC_PRESSURE, O2_S1_WR_CURRENT, O2_S2_WR_CURRENT, O2_S3_WR_CURRENT, O2_S4_WR_CURRENT, O2_S5_WR_CURRENT, O2_S6_WR_CURRENT, O2_S7_WR_CURRENT, O2_S8_WR_CURRENT, CATALYST_TEMP_B1S1, CATALYST_TEMP_B2S1, CATALYST_TEMP_B1S2, CATALYST_TEMP_B2S2, PIDS_C, STATUS_DRIVE_CYCLE, CONTROL_MODULE_VOLTAGE, ABSOLUTE_LOAD, COMMANDED_EQUIV_RATIO, RELATIVE_THROTTLE_POS, AMBIANT_AIR_TEMP, THROTTLE_POS_B, THROTTLE_POS_C, ACCELERATOR_POS_D, ACCELERATOR_POS_E, ACCELERATOR_POS_F, THROTTLE_ACTUATOR, RUN_TIME_MIL, TIME_SINCE_DTC_CLEARED, unsupported, MAX_MAF, FUEL_TYPE, ETHANOL_PERCENT, EVAP_VAPOR_PRESSURE_ABS, EVAP_VAPOR_PRESSURE_ALT, SHORT_O2_TRIM_B1, LONG_O2_TRIM_B1, SHORT_O2_TRIM_B2, LONG_O2_TRIM_B2, FUEL_RAIL_PRESSURE_ABS, RELATIVE_ACCEL_POS, HYBRID_BATTERY_REMAINING, OIL_TEMP, FUEL_INJECT_TIMING, FUEL_RATE]
+
+        # for command in commands:
+        #         parameters_to_query.append(obd.commands.command)
+
 
         # ----------------------- ADDING DATA TO DATABASE -----------------------
 

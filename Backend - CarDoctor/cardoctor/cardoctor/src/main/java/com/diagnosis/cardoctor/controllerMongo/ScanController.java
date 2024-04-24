@@ -63,7 +63,6 @@ int check = 1;
             // Execute Python script
             String result = executePythonScript(username);
 
-
             // Find all codes for the given username
             List<Codes> codes = codeDao.findAllByUsername(username);
 
@@ -75,66 +74,19 @@ int check = 1;
                 commandMap.computeIfAbsent(code.getCommand(), k -> new ArrayList<>()).add(code);
             }
 
-            // Process each command group
-            for (List<Codes> codeList : commandMap.values()) {
+
+            for (Map.Entry<String, List<Codes>> entry : commandMap.entrySet()) {
+                List<Codes> codeList = entry.getValue();
                 // Sort codes by order number to ensure the correct sequence
                 codeList.sort(Comparator.comparingInt(Codes::getOrderNumber));
 
 
-                // Reassign order numbers and remove rhe first element
-                for (int i =0; i < codeList.size(); i++) {
-                    codeList.get(i).setOrderNumber(i+1);
-
-//                    if(codeList.get(i).getOrderNumber() >=3) {
-//                        System.out.println("Element to delete is " + codeList.get(0).getId() + " with order number " + codeList.get(0).getOrderNumber());
-//                        //remove the first element from codeList
-//                        codeDao.deleteById(codeList.get(0).getId());
-
-
-                        // fu important
-//                        for (int j = 1; j < 3; j++) {
-//                            System.out.println("Order number is " + codeList.get(j).getOrderNumber() + "and it becomes " + j);
-//                            codeList.get(j).setOrderNumber(j);
-//                            //modify the position in the list
-//                            codeList.set(j-1, codeList.get(j));
-//
-//
-//
-//                        }
-                        //System.out.println("First element is " + codeList.get(0).getId() + " we have to delete it");
-                        //deleteById(codeList.get(0).getId());
-//                        codeList.remove(0);
-//                    }
-//
-//                }
-
-//                if(codeList.size() >= 3) {
-//                    //remove the first element from the db
-//                    System.out.println(codeList.get(0).getId());
-//                    codeDao.deleteById(codeList.get(0).getId());
-//                    codeList.remove(0);
-//                }
-                    //move the rest of the codes one position up
-//                for (int i = 0; i < codeList.size(); i++) {
-//                    codeList.get(i).setOrderNumber(check + i);
-               }
-//
+                for (int i = 0; i < codeList.size(); i++) {
+                    codeList.get(i).setOrderNumber(i + 1);  // Start from 1 and increment sequentially
+                }
             }
 
-//            for (Codes code : codes) {
-//                if(code.getOrderNumber() >= 3) {
-//                    // print the code with orderNumber 1
-//                    System.out.println(code.getCommand());
-//                    code.setOrderNumber(check - 1);
-//
-//                }
-//                if(code.getOrderNumber() == 0) {
-//
-//                    codeDao.deleteById(code.getId());
-//                }
-//            }
 
-            // Save updated codes
             for (Codes code : codes) {
                 codeDao.save(code);
             }

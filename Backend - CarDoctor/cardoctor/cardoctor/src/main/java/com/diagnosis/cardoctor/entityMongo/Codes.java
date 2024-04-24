@@ -21,6 +21,7 @@ public class Codes {
     private Boolean problem;
     private String username;
     private int orderNumber;
+    private int snapshot;
 
 
 //    @Getter
@@ -54,6 +55,9 @@ public class Codes {
         if (newCode.getOrderNumber() != 0) {
             this.orderNumber = newCode.getOrderNumber();
         }
+        if (newCode.getSnapshot() != 0) {
+            this.snapshot = newCode.getSnapshot();
+        }
 
 
     }
@@ -64,6 +68,10 @@ public class Codes {
 
     public void setOrderNumber(int orderNumber) {
         this.orderNumber = orderNumber;
+    }
+
+    public void setSnapshot(int snapshot) {
+        this.snapshot = snapshot;
     }
 
     //create delete function that deletes the element from the db

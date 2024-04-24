@@ -18,6 +18,8 @@ import WelcomeScreen from './src/screens/WelcomeScreen';
 import LoginScreen from './src/screens/LoginScreen'; 
 import SignupScreen from './src/screens/SignupScreen'; 
 import ChartScreen from './src/screens/ChartScreen'; 
+import SnapshotsScreen from './src/screens/SnapshotsScreen';
+import CodesSnapshotScreen from './src/screens/CodesSnapshotScreen';
 
 
 
@@ -33,6 +35,8 @@ const ScanStack = () => (
     <Stack.Screen name="ResultsScreen" component={ResultsScreen} />
     <Stack.Screen name="PartsScreen" component={PartsScreen} />
     <Stack.Screen name="ChartScreen" component={ChartScreen} />
+    <Stack.Screen name="SnapshotsScreen" component={SnapshotsScreen} />
+    <Stack.Screen name="CodesSnapshotScreen" component={CodesSnapshotScreen} />
   </Stack.Navigator>
 );
 

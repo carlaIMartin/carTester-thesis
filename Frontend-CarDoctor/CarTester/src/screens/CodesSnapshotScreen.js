@@ -1,28 +1,17 @@
-import React, {useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Button, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import { auth } from '../config/firebaseConfig';
 
-const ResultsScreen = ({ route, navigation }) => {
-  const { data } = route.params;
+const CodesSnapshotScreen = ({route, navigation}) => {
+  const { data } = route.params || {};
   const user = auth.currentUser;
-  const [filteredData, setFilteredData] = useState([]);
+  const [searchText, setSearchText] = useState('');
+  const [filteredData, setFilteredData] = useState(data || []);
 
   useEffect(() => {
     console.log(data); 
-    filterDataByHighestOrderNumber();
+    setFilteredData(data); // Initially set filteredData to data
   }, [data]);
-
-  const filterDataByHighestOrderNumber = () => {
-    const highestOrderItems = new Map();
-
-    data.forEach(item => {
-      if (!highestOrderItems.has(item.command) || highestOrderItems.get(item.command).orderNumber < item.orderNumber) {
-        highestOrderItems.set(item.command, item);
-      }
-    });
-
-    setFilteredData([...highestOrderItems.values()]);
-  };
 
   const handlePartsPress = async (command) => {
     console.log(`You clicked on ${command}`);
@@ -35,17 +24,24 @@ const ResultsScreen = ({ route, navigation }) => {
       console.error('There was an error fetching the data:', error);
     }
   };
-                                                                  
+
+  const handleSearch = (text) => {
+    setSearchText(text);
+    const filteredItems = data.filter(item => item.command.toLowerCase().includes(text.toLowerCase()));
+    setFilteredData(filteredItems);
+  };
+
   return (
     <View style={styles.container}>
+      <TextInput
+        style={styles.searchBar}
+        placeholder="Search by Name"
+        value={searchText}
+        onChangeText={handleSearch}
+      />
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         {filteredData.map((item, index) => (
-          <View key={index} 
-            style={[
-              styles.itemContainer, 
-              item.problem ? styles.problemContainer : {}
-            ]}
-          >
+          <View key={index} style={[styles.itemContainer, item.problem ? styles.problemContainer : {}]}>
             <Text style={styles.itemText}>ID: {item.id}</Text>
             <Text style={styles.itemText}>Name: {item.command}</Text>
             <Text style={styles.itemText}>Category: {item.category}</Text>
@@ -54,10 +50,7 @@ const ResultsScreen = ({ route, navigation }) => {
             <Text style={styles.itemText}>Order Number: {item.orderNumber}</Text>
 
             {item.problem && (
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => handlePartsPress(item.command)}
-              >
+              <TouchableOpacity style={styles.button} onPress={() => handlePartsPress(item.command)}>
                 <Text style={styles.buttonText}>See recommended parts</Text>
               </TouchableOpacity>
             )}
@@ -73,6 +66,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  searchBar: {
+    fontSize: 18,
+    padding: 10,
+    backgroundColor: '#f0f0f0',
+    margin: 10,
+    borderRadius: 5,
+  },
   scrollViewContainer: {
     padding: 20,
   },
@@ -83,9 +83,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   button: {
-    backgroundColor: '#695585', 
+    backgroundColor: '#695585',
     padding: 10,
-    marginVertical: 5, 
+    marginVertical: 5,
     borderRadius: 5,
   },
   buttonText: {
@@ -101,10 +101,6 @@ const styles = StyleSheet.create({
     color: '#333',
     marginVertical: 3,
   },
-  errorText: {
-    fontSize: 50,
-    color: '#DA7DE1',
-  }
 });
 
-export default ResultsScreen;
+export default CodesSnapshotScreen;

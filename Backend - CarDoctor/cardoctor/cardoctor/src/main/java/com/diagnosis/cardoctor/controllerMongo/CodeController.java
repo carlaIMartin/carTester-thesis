@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -19,8 +20,11 @@ public class CodeController {
     @Autowired
     private CodeDao codeDao;
 
+    int number;
+
     @Autowired
     private PartsService partsService;
+
 
     @GetMapping("/findAllNames")
     public List<Codes> getIgen() {
@@ -40,12 +44,34 @@ public class CodeController {
 
     }
 
+    @GetMapping("codeByOrderAndUsername/{username}/{orderNumber}")
+    public  List<Codes> getByOrderAndUsername(@PathVariable String username, @PathVariable int orderNumber) {
+        return codeDao.findAllByUsernameAndOrderNumber(username, orderNumber);
+    }
+
+
+
     @GetMapping("/codeTypeAndUser/{type}/{username}")
     public List<Codes> getTypeAndUser(@PathVariable String type, @PathVariable String username) {
 
         // return codeCategories.getAllCodesWithTemporaryInfo();
         System.out.println(codeDao.findByTypeAndUser(type, username));
         return codeDao.findByTypeAndUser(type, username);
+
+    }
+
+    @GetMapping("/getMaxNumber/{username}")
+    public int getNumber(@PathVariable String username) {
+
+        List<Codes> codes = codeDao.findAllByUsername(username);
+        for(Codes code : codes)
+        {
+            if(number < code.getOrderNumber()){
+                number = code.getOrderNumber();
+            }
+
+        }
+        return number;
 
     }
 

@@ -33,6 +33,8 @@ public interface CodeDao extends MongoRepository<Codes,String> {
     @Query(value="{ 'command' : ?0, 'username' : ?1 }", fields="{ 'command' : 1, '_id' : 1, 'response_code' : 1, 'description' : 1, 'timestamp' : 1, 'type' : 1, 'problem' : 1, 'username' : 1, 'orderNumber' : 1}")
     List<Codes> findByCommandAndUser(String command, String username);
 
+    @Query(value="{'username' :  ?0, 'orderNumber' : ?1}", fields="{ 'command' : 1, '_id' : 1,  response_code : 1, description : 1, timestamp : 1, type : 1, problem : 1, username : 1, 'orderNumber' : 1}")
+    List<Codes> findAllByUsernameAndOrderNumber(String username, int orderNumber);
 
 
 }

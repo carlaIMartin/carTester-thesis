@@ -38,6 +38,10 @@ const Scan = ({ navigation }) => {
     navigation.navigate('CategoriesScreen');
   }
 
+  const handleSnapshotPress = async () => {
+    navigation.navigate('SnapshotsScreen');
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.buttonContainer}>
@@ -63,6 +67,12 @@ const Scan = ({ navigation }) => {
             <View style={styles.buttonWrapper}>
               <TouchableOpacity onPress={handleLogout} style={[styles.touchableButton, styles.logoutButton]}>
                 <Text style={styles.buttonText}>LOGOUT</Text>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.buttonWrapper}>
+              <TouchableOpacity onPress={handleSnapshotPress} style={[styles.touchableButton]}>
+                <Text style={styles.buttonText}>SNAPSHOTS</Text>
               </TouchableOpacity>
             </View>
             

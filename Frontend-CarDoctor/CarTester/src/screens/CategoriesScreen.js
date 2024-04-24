@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity, Text } from 'react-native';
 import { auth } from '../config/firebaseConfig';
+import { signOut } from 'firebase/auth';
 
 const categories = ['Engine', 'Sensors', 'ECU', 'Cluster', 'Nox', 'Chassis', "Unknown"];
 
@@ -32,8 +33,11 @@ const CategoriesScreen = ({ navigation }) => {
       setCategoriesWithProblems(tempCategoriesWithProblems);
     };
 
+
     checkCategoriesForProblems();
   }, []);
+
+
 
   const handleCategoryPress = async (category) => {
     let tempCategoriesWithProblems = [];
@@ -62,6 +66,8 @@ const CategoriesScreen = ({ navigation }) => {
       console.error('There was an error fetching the data:', error);
     }
   };
+
+  
 
   return (
     <View style={styles.container}>
