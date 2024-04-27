@@ -1,18 +1,19 @@
-import React, {useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, Button, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput } from 'react-native';
 import { auth } from '../config/firebaseConfig';
 
 const ResultsScreen = ({ route, navigation }) => {
   const { data } = route.params;
   const user = auth.currentUser;
   const [filteredData, setFilteredData] = useState([]);
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
-    console.log(data); 
-    filterDataByHighestOrderNumber();
+    console.log(data);
+    filterAndSortData();
   }, [data]);
 
-  const filterDataByHighestOrderNumber = () => {
+  const filterAndSortData = () => {
     const highestOrderItems = new Map();
 
     data.forEach(item => {
@@ -21,7 +22,12 @@ const ResultsScreen = ({ route, navigation }) => {
       }
     });
 
-    setFilteredData([...highestOrderItems.values()]);
+    // Convert Map values to array and sort to show items with problems first
+    const sortedData = [...highestOrderItems.values()].sort((a, b) => {
+      return b.problem - a.problem; // true values (problems) are considered 'greater' than false
+    });
+
+    setFilteredData(sortedData);
   };
 
   const handlePartsPress = async (command) => {
@@ -35,14 +41,34 @@ const ResultsScreen = ({ route, navigation }) => {
       console.error('There was an error fetching the data:', error);
     }
   };
-                                                                  
+
+  const handleSearch = (text) => {
+    setSearchText(text);
+    if (text === '') {
+      // When search text is cleared, set data back to the original sorted and filtered list
+      filterAndSortData();
+    } else {
+      // Filter based on the user input
+      const filteredItems = filteredData.filter(item => 
+        item.command.toLowerCase().includes(text.toLowerCase())
+      );
+      setFilteredData(filteredItems);
+    }
+  };
+
   return (
     <View style={styles.container}>
+      <TextInput
+        style={styles.searchBar}
+        placeholder="Search by Name"
+        value={searchText}
+        onChangeText={handleSearch}
+      />
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         {filteredData.map((item, index) => (
-          <View key={index} 
+          <View key={index}
             style={[
-              styles.itemContainer, 
+              styles.itemContainer,
               item.problem ? styles.problemContainer : {}
             ]}
           >
@@ -61,6 +87,13 @@ const ResultsScreen = ({ route, navigation }) => {
                 <Text style={styles.buttonText}>See recommended parts</Text>
               </TouchableOpacity>
             )}
+
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate('CodeChartScreen', { name: item.command })}
+            >
+              <Text style={styles.buttonText}>Code chart</Text>
+            </TouchableOpacity>
           </View>
         ))}
       </ScrollView>
@@ -83,9 +116,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   button: {
-    backgroundColor: '#695585', 
+    backgroundColor: '#695585',
     padding: 10,
-    marginVertical: 5, 
+    marginVertical: 5,
     borderRadius: 5,
   },
   buttonText: {
@@ -100,10 +133,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#333',
     marginVertical: 3,
-  },
-  errorText: {
-    fontSize: 50,
-    color: '#DA7DE1',
   }
 });
 

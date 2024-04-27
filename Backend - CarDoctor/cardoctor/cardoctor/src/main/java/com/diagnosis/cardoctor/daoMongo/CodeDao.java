@@ -1,10 +1,12 @@
 package com.diagnosis.cardoctor.daoMongo;
 
 import com.diagnosis.cardoctor.entityMongo.Codes;
+import org.springframework.data.domain.Page;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +31,9 @@ public interface CodeDao extends MongoRepository<Codes,String> {
 
     @Query(value="{'username' :  ?0}", fields="{ 'command' : 1, '_id' : 1,  response_code : 1, description : 1, timestamp : 1, type : 1, problem : 1, username : 1, 'orderNumber' : 1}")
     List<Codes> findAllByUsername(String username);
+
+    @Query(value="{'username' :  ?0}", fields="{ 'command' : 1, '_id' : 1,  response_code : 1, description : 1, timestamp : 1, type : 1, problem : 1, username : 1, 'orderNumber' : 1}")
+    Page<Codes> findAllByUsernamePageable(String username, Pageable pageable);
 
     @Query(value="{ 'command' : ?0, 'username' : ?1 }", fields="{ 'command' : 1, '_id' : 1, 'response_code' : 1, 'description' : 1, 'timestamp' : 1, 'type' : 1, 'problem' : 1, 'username' : 1, 'orderNumber' : 1}")
     List<Codes> findByCommandAndUser(String command, String username);

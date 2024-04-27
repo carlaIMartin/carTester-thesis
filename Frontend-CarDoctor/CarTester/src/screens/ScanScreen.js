@@ -24,7 +24,7 @@ const Scan = ({ navigation }) => {
       await signOut(auth);
       console.log('User signed out');
       // Optionally, navigate to the login or welcome screen after signing out
-      // navigation.navigate('Welcome');
+      //navigation.navigate('Welcome');
     } catch (error) {
       console.error('Error signing out: ', error);
     }

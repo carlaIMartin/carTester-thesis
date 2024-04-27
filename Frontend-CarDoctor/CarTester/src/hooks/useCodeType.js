@@ -19,13 +19,33 @@ const useCodeType = () => {
       }
 
       const result = await codesResponse.json();
-      Alert.alert('Success', 'Data fetched successfully!', [{ text: 'OK' }]);
       return result; // Return result for use in the component
     } catch (error) {
       Alert.alert('Error', error.message || 'Failed to fetch data', [{ text: 'OK' }]);
       throw error; // Rethrow to handle it in the component
     }
   };
+
+  const handleChartData = async (page, pageSize = 10) => {
+    try {
+      const url = `http://192.168.68.1:8080/codesPageable/${user.email}?page=${page}&size=${pageSize}`;
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      });
+      if (!response.ok) {
+        throw new Error('Failed to fetch data');
+      }
+      const result = await response.json();
+      console.log('igensss:', result);
+      return result; // Return result for use in the component
+      
+    } catch (error) {
+      Alert.alert('Error', error.message || 'Failed to fetch data', [{ text: 'OK' }]);
+      throw error; // Rethrow to handle it in the component
+    }
+  };
+
 
   const handleCodeByOrder = async (orderNumber) => {
     try {
@@ -54,7 +74,7 @@ const useCodeType = () => {
     
   }
 
-  return { handleCodeData, handleCodeByOrder };
+  return { handleCodeData, handleCodeByOrder, handleChartData };
 };
 
 

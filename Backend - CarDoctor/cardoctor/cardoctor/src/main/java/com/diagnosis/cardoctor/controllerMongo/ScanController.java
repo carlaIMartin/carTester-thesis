@@ -60,16 +60,16 @@ int check = 1;
     @PostMapping("/scanCodes/{username}")
     public ResponseEntity<String> scanCodesUser(@PathVariable String username) {
         try {
-            // Execute Python script
+
             String result = executePythonScript(username);
 
-            // Find all codes for the given username
+
             List<Codes> codes = codeDao.findAllByUsername(username);
 
-            // Map to store codes grouped by the 'command' attribute
+
             Map<String, List<Codes>> commandMap = new HashMap<>();
 
-            // Group codes by command attribute
+
             for (Codes code : codes) {
                 commandMap.computeIfAbsent(code.getCommand(), k -> new ArrayList<>()).add(code);
             }
@@ -77,12 +77,11 @@ int check = 1;
 
             for (Map.Entry<String, List<Codes>> entry : commandMap.entrySet()) {
                 List<Codes> codeList = entry.getValue();
-                // Sort codes by order number to ensure the correct sequence
                 codeList.sort(Comparator.comparingInt(Codes::getOrderNumber));
 
 
                 for (int i = 0; i < codeList.size(); i++) {
-                    codeList.get(i).setOrderNumber(i + 1);  // Start from 1 and increment sequentially
+                    codeList.get(i).setOrderNumber(i + 1);
                 }
             }
 
@@ -91,7 +90,7 @@ int check = 1;
                 codeDao.save(code);
             }
 
-            return ResponseEntity.ok(result); // Return the result from the script execution
+            return ResponseEntity.ok(result);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().body("Error executing script: " + e.getMessage());
@@ -99,7 +98,7 @@ int check = 1;
     }
 
     private String executePythonScript(String username) throws IOException, InterruptedException {
-        ProcessBuilder processBuilder = new ProcessBuilder("D:/Anaconda3/python.exe", "D:\\LICENTA-CARDOCTOR\\scripts_backup\\scripts\\ok.py", username );
+        ProcessBuilder processBuilder = new ProcessBuilder("D:/Anaconda3/python.exe", "D:\\LICENTA-CARDOCTOR\\scripts\\scanScript\\mainScan.py", username );
         Process process = processBuilder.start();
         StringBuilder output = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {

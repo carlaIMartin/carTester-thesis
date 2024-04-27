@@ -6,6 +6,7 @@ from obd.utils import bytes_to_int
 from obd.protocols import ECU
 from obd import OBDCommand
 import sys
+from problems import determineIfError
 
 
 # WORKSSSSSSS
@@ -77,15 +78,17 @@ def findCommandType(command):
         command_type="Unknown"
     return command_type
 
-def determineIfError(command):
-    if(command == "RPM"):
-        return True
-    elif (command == "EGR_ERROR"):
-        return True
-    elif (command == "FUEL_INJECT_TIMING"):
-        return True
-    else:
-        return False
+# def determineIfError(command, responseValue):
+    
+#     if(command == "RPM"):
+#         return True
+#     elif (command == "EGR_ERROR"):
+#         return True
+#     elif (command == "FUEL_INJECT_TIMING"):
+#         return True
+#     else:
+#         return False
+    
 
 # --------------------DECLARATION OF ALL NEEDED COMMAANDS (TO BE CUSTOM)------------------
 
@@ -170,6 +173,110 @@ fuelRailPressureDirect = OBDCommand("FUEL_RAIL_PRESSURE_DIRECT", \
                 ECU.ENGINE, \
                 True)
 
+o2_b1s1 = OBDCommand("O2_B1S1", \
+                "O2 B1S1", \
+                b"013C", \
+                2, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+o2_b1s2 = OBDCommand("O2_B1S2", \
+                "O2 B1S2", \
+                b"013D", \
+                2, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+
+o2_b1s3 = OBDCommand("O2_B1S3", \
+                "O2 B1S3", \
+                b"013E", \
+                2, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+o2_b1s4 = OBDCommand("O2_B1S4", \
+                "O2 B1S4", \
+                b"013F", \
+                2, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+o2_b2s1 = OBDCommand("O2_B2S1", \
+                "O2 B2S1", \
+                b"0140", \
+                2, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+o2_b2s2 = OBDCommand("O2_B2S2", \
+                "O2 B2S2", \
+                b"0141", \
+                2, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+o2_b2s3 = OBDCommand("O2_B2S3", \
+                "O2 B2S3", \
+                b"0142", \
+                2, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+o2_b2s4 = OBDCommand("O2_B2S4", \
+                "O2 B2S4", \
+                b"0143", \
+                2, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+
+evapVaporPressure = OBDCommand("EVAP_VAPOR_PRESSURE", \
+                "EVAP VAPOR PRESSURE", \
+                b"013D", \
+                2, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+
+ambientAirTemp = OBDCommand("AMBIANT_AIR_TEMP", \
+                "AMBIANT AIR TEMP", \
+                b"0146", \
+                1, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+
+acceleratorPosB = OBDCommand("ACCELERATOR_POS_B", \
+                "ACCELERATOR POS B", \
+                b"0148", \
+                1, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+
+acceleratorPosD = OBDCommand("ACCELERATOR_POS_D", \
+                "ACCELERATOR POS D", \
+                b"0149", \
+                1, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+
+acceleratorPosE = OBDCommand("ACCELERATOR_POS_E", \
+                "ACCELERATOR POS E", \
+                b"014A", \
+                1, \
+                decoder, \
+                ECU.ENGINE, \
+                True)
+
+
+
+                     
+
+
+
 
 
 
@@ -196,6 +303,20 @@ connection.supported_commands.add(longFuelTrim2)
 connection.supported_commands.add(fuelPressure)
 connection.supported_commands.add(intakePressure)
 connection.supported_commands.add(fuelRailPressureDirect)
+connection.supported_commands.add(o2_b1s1)
+connection.supported_commands.add(o2_b1s2)
+connection.supported_commands.add(o2_b1s3)
+connection.supported_commands.add(o2_b1s4)
+connection.supported_commands.add(o2_b2s1)
+connection.supported_commands.add(o2_b2s2)
+connection.supported_commands.add(o2_b2s3)
+connection.supported_commands.add(o2_b2s4)
+connection.supported_commands.add(evapVaporPressure)
+connection.supported_commands.add(ambientAirTemp)
+connection.supported_commands.add(acceleratorPosD)
+connection.supported_commands.add(acceleratorPosB)
+connection.supported_commands.add(acceleratorPosE)
+
 #connection.supported_commands.add(obd.commands.MONITOR_MISFIRE_CYLINDER_2)
 
 
@@ -250,25 +371,33 @@ try:
             obd.commands.FUEL_RAIL_PRESSURE_VAC,
             #obd.commands.FUEL_RAIL_PRESSURE_DIRECT,
             fuelRailPressureDirect,
-            obd.commands.O2_B1S1,
-            obd.commands.O2_B1S2,
-            obd.commands.O2_B1S3,
-            obd.commands.O2_B1S4,
-            obd.commands.O2_B2S1,
-            obd.commands.O2_B2S2,
-            obd.commands.O2_B2S3,
-            obd.commands.O2_B2S4,
+            # obd.commands.O2_B1S1,
+            o2_b1s1,
+            # obd.commands.O2_B1S2,
+            o2_b1s2,
+            # obd.commands.O2_B1S3,
+            o2_b1s3,
+            # obd.commands.O2_B1S4,
+            o2_b1s4,
+            # obd.commands.O2_B2S1,
+            o2_b2s1,
+            # obd.commands.O2_B2S2,
+            o2_b2s2,
+            # obd.commands.O2_B2S3,
+            o2_b2s3,
+            # obd.commands.O2_B2S4,
+            o2_b2s4,
             obd.commands.OBD_COMPLIANCE,
             obd.commands.O2_SENSORS,
-            obd.commands.FUEL_RAIL_PRESSURE_VAC,
-            obd.commands.FUEL_RAIL_PRESSURE_DIRECT,
+            # obd.commands.FUEL_RAIL_PRESSURE_VAC,
             obd.commands.COMMANDED_EGR,
             #obd.commands.EGR_ERROR,
             #obd.commands.COMMANDED_EVAPORATIVE_PURGE,
             obd.commands.EVAPORATIVE_PURGE,
             #obd.commands.COMMANDED_THROTTLE,
             obd.commands.DISTANCE_SINCE_DTC_CLEAR,
-            obd.commands.EVAP_VAPOR_PRESSURE,
+            # obd.commands.EVAP_VAPOR_PRESSURE,
+            evapVaporPressure,
             obd.commands.BAROMETRIC_PRESSURE,
             obd.commands.O2_S1_WR_CURRENT,
             obd.commands.CATALYST_TEMP_B1S1,
@@ -277,10 +406,14 @@ try:
             obd.commands.ABSOLUTE_LOAD,
             obd.commands.COMMANDED_EQUIV_RATIO,
             obd.commands.RELATIVE_THROTTLE_POS,
-            obd.commands.AMBIANT_AIR_TEMP,
-            obd.commands.THROTTLE_POS_B,
-            obd.commands.ACCELERATOR_POS_D,
-            obd.commands.ACCELERATOR_POS_E,
+            # obd.commands.AMBIANT_AIR_TEMP,
+            ambientAirTemp,
+            # obd.commands.THROTTLE_POS_B,
+            acceleratorPosB,
+            # obd.commands.ACCELERATOR_POS_D,
+            acceleratorPosD,
+            # obd.commands.ACCELERATOR_POS_E,
+            acceleratorPosE,
             obd.commands.THROTTLE_ACTUATOR,
             obd.commands.RUN_TIME_MIL,
             obd.commands.TIME_SINCE_DTC_CLEARED,
@@ -311,16 +444,18 @@ try:
         for parameter in parameters_to_query:
             response=connection.query(parameter)
             print( findCommandType(parameter.name) )
+            responseValue = response.value.magnitude if isinstance(response.value, obd.Unit.Quantity) else response.value
+
             if not response.is_null():
                 data = {
                         "_id": ObjectId(),  
                         "command": parameter.name,
-                        "response_code": response.value.magnitude if isinstance(response.value, obd.Unit.Quantity) else response.value,
+                        "response_code": responseValue,
                         "description": parameter.desc,
                         "type": findCommandType(parameter.name),
                         #"unit": getattr(parameter, 'units', ''),  
                         "timestamp": datetime.datetime.utcnow(),
-                        "problem": determineIfError(parameter.name),
+                        "problem": determineIfError(parameter.name, responseValue),
                         "username": sys.argv[1]
                     }
                 insert_into_mongodb(data)
