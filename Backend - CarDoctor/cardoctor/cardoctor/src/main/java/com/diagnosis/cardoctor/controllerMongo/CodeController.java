@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.data.domain.Pageable;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -68,6 +70,7 @@ public class CodeController {
             if(number < code.getOrderNumber()){
                 number = code.getOrderNumber();
             }
+            System.out.println(code.getOrderNumber());
 
         }
         return number;
@@ -130,6 +133,11 @@ public class CodeController {
     @GetMapping("/getCodesByCommandAndUser/{command}/{username}")
     public List<Codes> getCodesByCommandAndUser(@PathVariable String command, @PathVariable String username) {
         return codeDao.findByCommandAndUser(command, username);
+    }
+
+    @GetMapping("/scrapeParts/{part}")
+    public String scrapeParts(@PathVariable String part) throws IOException, InterruptedException {
+        return partsService.scrapeParts(part);
     }
 
 }

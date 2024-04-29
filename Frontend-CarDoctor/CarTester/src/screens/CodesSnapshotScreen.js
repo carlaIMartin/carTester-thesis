@@ -2,16 +2,26 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView, TextInput, TouchableOpacity } from 'react-native';
 import { auth } from '../config/firebaseConfig';
 
-const CodesSnapshotScreen = ({route, navigation}) => {
+const CodesSnapshotScreen = ({ route, navigation }) => {
   const { data } = route.params || {};
   const user = auth.currentUser;
   const [searchText, setSearchText] = useState('');
-  const [filteredData, setFilteredData] = useState(data || []);
+  const [filteredData, setFilteredData] = useState([]);
 
   useEffect(() => {
-    console.log(data); 
-    setFilteredData(data); // Initially set filteredData to data
+    if (data) {
+      const sortedData = sortData(data);
+      setFilteredData(sortedData);
+    }
   }, [data]);
+
+  const sortData = (items) => {
+    return items.sort((a, b) => {
+      if (a.problem && !b.problem) return -1;
+      if (!a.problem && b.problem) return 1;
+      return 0;
+    });
+  };
 
   const handlePartsPress = async (command) => {
     console.log(`You clicked on ${command}`);
@@ -27,8 +37,11 @@ const CodesSnapshotScreen = ({route, navigation}) => {
 
   const handleSearch = (text) => {
     setSearchText(text);
-    const filteredItems = data.filter(item => item.command.toLowerCase().includes(text.toLowerCase()));
-    setFilteredData(filteredItems);
+    if (data) {
+      const filteredItems = data.filter(item => item.command.toLowerCase().includes(text.toLowerCase()));
+      const sortedItems = sortData(filteredItems);
+      setFilteredData(sortedItems);
+    }
   };
 
   return (
@@ -41,7 +54,12 @@ const CodesSnapshotScreen = ({route, navigation}) => {
       />
       <ScrollView contentContainerStyle={styles.scrollViewContainer}>
         {filteredData.map((item, index) => (
-          <View key={index} style={[styles.itemContainer, item.problem ? styles.problemContainer : {}]}>
+          <View key={index}
+            style={[
+              styles.itemContainer,
+              item.problem ? styles.problemContainer : {}
+            ]}
+          >
             <Text style={styles.itemText}>ID: {item.id}</Text>
             <Text style={styles.itemText}>Name: {item.command}</Text>
             <Text style={styles.itemText}>Category: {item.category}</Text>

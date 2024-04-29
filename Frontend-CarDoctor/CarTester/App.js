@@ -21,6 +21,7 @@ import ChartScreen from './src/screens/ChartScreen';
 import SnapshotsScreen from './src/screens/SnapshotsScreen';
 import CodesSnapshotScreen from './src/screens/CodesSnapshotScreen';
 import CodeChartScreen from './src/screens/CodeChartScreen';
+import SuggestionScreen from './src/screens/SuggestionScreen';  
 
 
 
@@ -39,6 +40,7 @@ const ScanStack = () => (
     <Stack.Screen name="SnapshotsScreen" component={SnapshotsScreen} />
     <Stack.Screen name="CodesSnapshotScreen" component={CodesSnapshotScreen} />
     <Stack.Screen name="CodeChartScreen" component={CodeChartScreen} />
+    <Stack.Screen name="SuggestionScreen" component={SuggestionScreen} />
   </Stack.Navigator>
 );
 

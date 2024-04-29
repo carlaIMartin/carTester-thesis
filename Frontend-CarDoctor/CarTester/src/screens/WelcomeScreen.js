@@ -1,71 +1,81 @@
 import React from "react";
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-} from "react-native";
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 const WelcomeScreen = ({ navigation }) => {
-  return (
-    <SafeAreaView style={styles.container}>
-      <Text style={styles.title}>Welcome to CarDoctor ! </Text>
 
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          navigation.navigate("Login");
-        }}
-      >
-        <Text style={styles.buttonText}>Sign In</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => {
-          navigation.navigate("Signup");
-        }}
-      >
-        <Text style={styles.buttonText}>Sign Up</Text>
-      </TouchableOpacity>
-    </SafeAreaView>
+  const image = require("../../assets/carrepair.jpg");
+  return (
+    
+    <View style={styles.fullScreen}>
+      <ImageBackground source={image} style={styles.image}>
+        <View style={styles.overlay} />
+        
+        <View style={styles.content}>
+          <Text style={styles.title}>Welcome to CarDoctor ! </Text>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate("Login");
+              }}
+            >
+              <Text style={styles.buttonText}>Sign In</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => {
+                navigation.navigate("Signup");
+              }}
+            >
+              <Text style={styles.buttonText}>Sign Up</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </ImageBackground>      
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  fullScreen: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#ffffff",
-    paddingHorizontal: 20,
   },
-  logo: {
-    width: 150,
-    height: 150,
-    marginBottom: 20,
+  image: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+  content: {
+    flex: 1,
+    justifyContent: 'space-between',  
+    paddingVertical: 20,  
   },
   title: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: "bold",
-    marginBottom: 30,
+    textAlign: 'center',
+    color: '#E5C3BB',
+    marginTop: 70,  
   },
-  subtitle: {
-    fontSize: 16,
-    marginBottom: 30,
-    textAlign: "center",
+  buttonContainer: {
+    marginBottom: 30,  
   },
   button: {
-    backgroundColor: "#007BFF",
+    backgroundColor: "#E5C3BB",
     width: "90%",
-    paddingVertical: 15,
-    marginHorizontal: 15,
-    borderRadius: 8,
-    marginBottom: 20,
+    paddingVertical: 20,
+    alignSelf: 'center',
+    borderRadius: 110,
+    marginBottom: 5,
+    marginTop: 5,
   },
   buttonText: {
-    color: "#ffffff",
+    color: "#5A190B",
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",

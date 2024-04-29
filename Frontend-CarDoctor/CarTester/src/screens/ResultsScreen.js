@@ -22,7 +22,6 @@ const ResultsScreen = ({ route, navigation }) => {
       }
     });
 
-    // Convert Map values to array and sort to show items with problems first
     const sortedData = [...highestOrderItems.values()].sort((a, b) => {
       return b.problem - a.problem; // true values (problems) are considered 'greater' than false
     });
@@ -45,10 +44,8 @@ const ResultsScreen = ({ route, navigation }) => {
   const handleSearch = (text) => {
     setSearchText(text);
     if (text === '') {
-      // When search text is cleared, set data back to the original sorted and filtered list
       filterAndSortData();
     } else {
-      // Filter based on the user input
       const filteredItems = filteredData.filter(item => 
         item.command.toLowerCase().includes(text.toLowerCase())
       );

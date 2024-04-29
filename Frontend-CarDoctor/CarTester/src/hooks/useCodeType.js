@@ -66,7 +66,7 @@ const useCodeType = () => {
 
     } catch (error) {
       Alert.alert('Error', error.message || 'Failed to fetch data', [{ text: 'OK' }]);
-      throw error; // Rethrow to handle it in the component
+      throw error; 
     }
 
 

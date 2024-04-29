@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.*;
 
 @Service
@@ -392,6 +395,40 @@ public class PartsService {
         } else {
             // Return the list of problems, wrapped in a ResponseEntity
             return new ResponseEntity<>(problems, HttpStatus.OK);
+        }
+    }
+
+    public String scrapeParts (String part) throws InterruptedException, IOException {
+        ProcessBuilder processBuilder = new ProcessBuilder("D:/Anaconda3/python.exe", "D:\\LICENTA-CARDOCTOR\\scripts\\scrapingScript\\scrapeParts.py", part );
+        Process process = processBuilder.start();
+        StringBuilder output = new StringBuilder();
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                output.append(line).append("\n");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
+            String line;
+            if ((line = errorReader.readLine()) != null) {
+                StringBuilder errorOutput = new StringBuilder();
+                do {
+                    errorOutput.append(line).append("\n");
+                } while ((line = errorReader.readLine()) != null);
+                return "Error: " + errorOutput.toString();
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        int exitVal = process.waitFor();
+        if (exitVal == 0) {
+            return output.toString();
+        } else {
+            return "Script execution failed with exit code: " + exitVal;
         }
     }
 }

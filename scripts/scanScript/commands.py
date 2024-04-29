@@ -262,7 +262,6 @@ def defineCommands() :
             # obd.commands.FUEL_RAIL_PRESSURE_VAC,
             obd.commands.COMMANDED_EGR,
             obd.commands.EVAPORATIVE_PURGE,
-            obd.commands.BAROMETRIC_PRESSURE,
             # obd.commands.AMBIANT_AIR_TEMP,
             ambientAirTemp,
             # obd.commands.THROTTLE_POS_B,
