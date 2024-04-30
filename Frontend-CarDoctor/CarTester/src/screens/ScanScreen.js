@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, ImageBackground } from 'react-native';
 import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebaseConfig'; // Make sure this path is correct
 import useScanCodes from '../hooks/useScanCodes';
 import { useNavigation } from '@react-navigation/native';
 
-
+const image = require("../../assets/bmw1.jpg");
 const Scan = ({ navigation }) => {
   const { result, handleScanCodeSubmit, isSubmitting, hasBeenSubmitted } = useScanCodes();
   const [scanClicked, setScanClicked] = useState(false);
@@ -23,7 +23,7 @@ const Scan = ({ navigation }) => {
     try {
       await signOut(auth);
       console.log('User signed out');
-      // Optionally, navigate to the login or welcome screen after signing out
+      
       // navigation.navigate('Welcome');
     } catch (error) {
       console.error('Error signing out: ', error);
@@ -43,7 +43,10 @@ const Scan = ({ navigation }) => {
   }
 
   return (
+    <ImageBackground source={image} style={styles.image} resizeMode="cover">
+    <View style={styles.overlay} />
     <View style={styles.container}>
+    {/* <Text style={styles.title}>Welcome, {auth.currentUser.email} ! </Text> */}
       <View style={styles.buttonContainer}>
         {isSubmitting ? (
           <ActivityIndicator size="large" color="#841584" />
@@ -70,15 +73,19 @@ const Scan = ({ navigation }) => {
               </TouchableOpacity>
             </View>
             <View style={styles.buttonWrapper}>
-              <TouchableOpacity onPress={handleLogout} style={[styles.touchableButton, styles.logoutButton]}>
+              <TouchableOpacity onPress={handleLogout} style={[ styles.logoutButton]}>
                 <Text style={styles.buttonText}>LOGOUT</Text>
               </TouchableOpacity>
             </View>
             
           </>
         )}
+        
       </View>
+    
+      
     </View>
+    </ImageBackground>
   );
 };
 
@@ -87,27 +94,63 @@ const styles = StyleSheet.create({
     flex: 1, 
     justifyContent: 'center', 
     alignItems: 'center', 
+    width: '90%',
+    marginBottom: 0,
   },
   buttonContainer: {
-    width: '80%', 
+    width: '100%', 
+  },
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(280, 100%, 10%)',
+    
   },
   buttonWrapper: {
     marginVertical: 10, 
   },
+  title: {
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: 'center',
+    color: '#5A190B',
+    marginTop: 20,  
+    marginBottom:20,
+  },
+  image: {
+    flex: 1,
+    width: null,
+    height: null,
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+  },
   touchableButton: {
     width: '100%',
-    height: 50, 
-    backgroundColor: '#841584', 
+    height: 70, 
+    marginBottom: 5,
+    backgroundColor: 'hsl(195, 40%, 52%)', 
     justifyContent: 'center',
     alignItems: 'center', 
-    borderRadius: 30, 
+    borderRadius: 10,
+    opacity: 0.9,
+     
   },
   logoutButton: {
+    marginTop: 180,
+    width: '100%',
+    height: 70, 
+    marginBottom: 5,
+    justifyContent: 'center',
+    alignItems: 'center', 
+    borderRadius: 10,
+    opacity: 0.7,
     backgroundColor: '#FF5733', 
   },
   buttonText: {
-    color: '#FFFFFF', 
+    color: '#5A190B',
+    opacity: 1, 
     fontSize: 16, 
+    fontWeight: 'bold',
   },
 });
 

@@ -52,7 +52,7 @@ const ChartScreen = () => {
 
     if (loading) {
         return (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', ...styles.backgroundColor }}>
                 <Text>Chart Screen</Text>
                 <ActivityIndicator size="large" color="#0000ff" />
             </View>
@@ -60,7 +60,7 @@ const ChartScreen = () => {
     }
 
     return (
-        <ScrollView>
+        <ScrollView style={styles.container}>
             {code && Object.keys(groupedData).map(command => {
                 
                 const responseCodes = groupedData[command].map(item => Number(item.response_code));
@@ -70,7 +70,7 @@ const ChartScreen = () => {
                 return (
                     <View key={command} style={{ flex: 1, alignItems: 'center' }}>
                             <Text>{command}</Text> 
-
+                    
                     <View key={command} style={{ flexDirection: 'row', height: 200, padding: 20 }}>
                        
                         <YAxis
@@ -85,7 +85,7 @@ const ChartScreen = () => {
                             <BarChart
                                 style={{ flex: 1 }}
                                 data={responseCodes}
-                                svg={{ fill: 'rgba(134, 65, 244, 0.8)' }}
+                                svg={{ fill: 'hsl(195, 40%, 52%)' }}
                                 contentInset={{ top: 20, bottom: 20 }}
                             >
                                 <Grid />
@@ -104,6 +104,16 @@ const ChartScreen = () => {
             })}
         </ScrollView>
     );
+};
+
+const styles = {
+    container: {
+        flex: 1,
+        backgroundColor: 'rgba(244,237,221,255)',
+    },
+    backgroundColor: {  
+        backgroundColor: 'rgba(244,237,221,255)',
+    },
 };
 
 export default ChartScreen;

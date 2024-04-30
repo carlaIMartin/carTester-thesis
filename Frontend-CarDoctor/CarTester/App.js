@@ -32,24 +32,24 @@ const Stack = createStackNavigator();
 // Authenticated Stack
 const ScanStack = () => (
   <Stack.Navigator>
-    <Stack.Screen name="ScanScreen" component={Scan} />
-    <Stack.Screen name="CategoriesScreen" component={CategoriesScreen} />
-    <Stack.Screen name="ResultsScreen" component={ResultsScreen} />
-    <Stack.Screen name="PartsScreen" component={PartsScreen} />
-    <Stack.Screen name="ChartScreen" component={ChartScreen} />
-    <Stack.Screen name="SnapshotsScreen" component={SnapshotsScreen} />
-    <Stack.Screen name="CodesSnapshotScreen" component={CodesSnapshotScreen} />
-    <Stack.Screen name="CodeChartScreen" component={CodeChartScreen} />
-    <Stack.Screen name="SuggestionScreen" component={SuggestionScreen} />
+    <Stack.Screen name="ScanScreen" component={Scan} options={{ headerShown: true }} />
+    <Stack.Screen name="CategoriesScreen" component={CategoriesScreen} options={{ headerShown: true }} />
+    <Stack.Screen name="ResultsScreen" component={ResultsScreen} options={{ headerShown: true }}/>
+    <Stack.Screen name="PartsScreen" component={PartsScreen} options={{ headerShown: true }}/>
+    <Stack.Screen name="ChartScreen" component={ChartScreen} options={{ headerShown: true }}/>
+    <Stack.Screen name="SnapshotsScreen" component={SnapshotsScreen} options={{ headerShown: true }}/>
+    <Stack.Screen name="CodesSnapshotScreen" component={CodesSnapshotScreen} options={{ headerShown: true }}/>
+    <Stack.Screen name="CodeChartScreen" component={CodeChartScreen} options={{ headerShown: true }}/>
+    <Stack.Screen name="SuggestionScreen" component={SuggestionScreen} options={{ headerShown: true }}/>
   </Stack.Navigator>
 );
 
 // Unauthenticated Stack
 const AuthStack = () => (
   <Stack.Navigator>
-    <Stack.Screen name="Welcome" component={WelcomeScreen} />
-    <Stack.Screen name="Login" component={LoginScreen} />
-    <Stack.Screen name="Signup" component={SignupScreen} />
+    <Stack.Screen name="Welcome" component={WelcomeScreen} options={{ headerShown: true }}/>
+    <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: true }}/>
+    <Stack.Screen name="Signup" component={SignupScreen} options={{ headerShown: true }}/>
   </Stack.Navigator>
 );
 
@@ -66,7 +66,7 @@ const App = () => {
       if (initializing) setInitializing(false);
     });
 
-    return unsubscribe; // Cleanup subscription on unmount
+    return unsubscribe; 
   }, []);
 
   if (initializing) {
@@ -80,11 +80,17 @@ const App = () => {
   return (
     <NavigationContainer>
       {user ? (
-        <Tab.Navigator>
-          <Tab.Screen name="Scan" component={ScanStack} />
-          
-          
-          {/* Add more Tab.Screen components for authenticated user navigation if needed */}
+        <Tab.Navigator
+          screenOptions={{
+            tabBarActiveTintColor: 'black', 
+            tabBarInactiveTintColor: 'gray', 
+            tabBarStyle: {
+              backgroundColor: 'rgba(255, 255, 255, 0.2)', // Semi-transparent white background
+              display: 'flex'
+            },
+          }}
+        >
+          <Tab.Screen name="Scan" component={ScanStack} options={{ headerShown: false }} />
         </Tab.Navigator>
       ) : (
         <AuthStack />

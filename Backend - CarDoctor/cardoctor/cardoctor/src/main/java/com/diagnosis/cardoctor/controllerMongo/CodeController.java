@@ -63,7 +63,7 @@ public class CodeController {
 
     @GetMapping("/getMaxNumber/{username}")
     public int getNumber(@PathVariable String username) {
-
+        int number = 0;
         List<Codes> codes = codeDao.findAllByUsername(username);
         for(Codes code : codes)
         {
@@ -74,6 +74,7 @@ public class CodeController {
 
         }
         return number;
+
 
     }
 

@@ -37,11 +37,11 @@ const CodeChartScreen = ({ route }) => {
         );
     }
 
-    // Create the data structure for the BarChart
+    // Prepare data for the chart
     const chartData = commands.map(c => ({
         value: c.response_code,
         svg: {
-            fill: 'rgba(134, 65, 244, 0.8)',
+            fill: 'hsl(195, 40%, 52%)',
         },
     }));
 
@@ -78,7 +78,7 @@ const CodeChartScreen = ({ route }) => {
             </View>
             <XAxis
                 style={{ marginHorizontal: -10, height: 20 }}
-                data={commands} // Here we use the original commands array
+                data={commands} 
                 formatLabel={(value, index) => commands[index].orderNumber.toString()}
                 contentInset={{ left: 20, right: 20 }}
                 svg={{ fontSize: 10, fill: 'black' }}

@@ -62,15 +62,16 @@ const styles = StyleSheet.create({
   inputContainer: {
     marginBottom: 250,
     width: '80%',
+
   },
   overlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: 'hsla(280, 20%, 12%, 0.5)',
   },
   input: {
     width: '100',  
     height: 50,     
-    backgroundColor: '#FFF',
+    backgroundColor: '#E5C3BB',
     padding: 15,    
     marginBottom: 10,
     borderRadius: 5,

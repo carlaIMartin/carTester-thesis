@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, FlatList, TouchableOpacity, Text, Dimensions, ImageBackground } from 'react-native';
 import { auth } from '../config/firebaseConfig';
-import { signOut } from 'firebase/auth';
 
 const categories = ['Engine', 'Sensors', 'ECU', 'Cluster', 'Nox', 'Chassis', "Unknown"];
-
-
+const image = require("../../assets/sportscar.jpg");
 const CategoriesScreen = ({ navigation }) => {
   const [categoriesWithProblems, setCategoriesWithProblems] = useState([]);
   const user = auth.currentUser;
-
 
   useEffect(() => {
     const checkCategoriesForProblems = async () => {
@@ -20,8 +17,7 @@ const CategoriesScreen = ({ navigation }) => {
           const response = await fetch(`http://192.168.68.1:8080/codeTypeAndUser/${category}/${user.email}`);
           const data = await response.json();
 
-          // const hasProblem = data.some(item => ["EGR_ERROR", "FUEL_INJECT_TIMING", "RPM", "SPEED"].includes(item.command) && item.problem);
-          const hasProblem = data.some(item =>  item.problem);
+          const hasProblem = data.some(item => item.problem);
           if (hasProblem) {
             tempCategoriesWithProblems.push(category);
           }
@@ -33,85 +29,82 @@ const CategoriesScreen = ({ navigation }) => {
       setCategoriesWithProblems(tempCategoriesWithProblems);
     };
 
-
     checkCategoriesForProblems();
   }, []);
 
-
-
   const handleCategoryPress = async (category) => {
-    let tempCategoriesWithProblems = [];
-    let dataWithProblems = [];
-
-    console.log(`You clicked on ${category}`);
     try {
       const responseCategory = await fetch(`http://192.168.68.1:8080/codeTypeAndUser/${category}/${user.email}`);
       const data = await responseCategory.json();
-
-      // data.forEach(item => {
-      //   if (["EGR_ERROR", "FUEL_INJECT_TIMING", "RPM", "SPEED"].includes(item.command) && item.problem) {
-      //     dataWithProblems.push(item);
-          
-      //   }
-      // });
-
-      
-
-      // if (dataWithProblems.length > 0) {
-      //   console.log("DATA THAT HAS PROBLEMS:", dataWithProblems);
-      // }
-
       navigation.navigate('ResultsScreen', { data });
     } catch (error) {
       console.error('There was an error fetching the data:', error);
     }
   };
 
-  
+  const renderCategory = ({ item }) => (
+    <TouchableOpacity
+      style={categoriesWithProblems.includes(item) ? styles.errorButton : styles.button}
+      onPress={() => handleCategoryPress(item)}
+      activeOpacity={0.7}
+    >
+      <Text style={styles.buttonText}>{item}</Text>
+    </TouchableOpacity>
+  );
 
   return (
     <View style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollViewContainer}>
-        {categories.map((category, index) => (
-          <TouchableOpacity
-            key={index}
-            style={categoriesWithProblems.includes(category) ? styles.errorButton : styles.button}
-            onPress={() => handleCategoryPress(category)}
-            activeOpacity={0.7}
-          >
-            <Text style={styles.buttonText}>{category}</Text>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+      <ImageBackground source={image} style={styles.image}>
+      <View style={styles.overlay} />
+      
+      <FlatList
+        data={categories}
+        renderItem={renderCategory}
+        keyExtractor={(item, index) => index.toString()}
+        numColumns={2} 
+        columnWrapperStyle={styles.row}
+      />
+      </ImageBackground>
     </View>
   );
 };
-
-
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    justifyContent: 'center',
   },
-  scrollViewContainer: {
-    alignItems: 'center',
-    paddingTop: 20,
+  overlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'hsl(0, 0%, 77%)',
+    opacity: 0.1,
+  },
+  row: {
+    flex: 1,
+    justifyContent: 'space-around',
+    paddingHorizontal: 10,
   },
   button: {
     backgroundColor: '#695585',
-    padding: 15,
+    padding: 20,
     borderRadius: 5,
     margin: 10,
-    width: '80%',
+    flex: 1, 
+    height: Dimensions.get('window').width / 2 - 40, 
+    justifyContent: 'center',
     alignItems: 'center',
+    opacity: 0.6,
   },
   errorButton: {
-    backgroundColor: '#6b290f',
-    padding: 15,
+    backgroundColor: 'rgb(229, 31, 31)',
+    opacity : 0.6,
+    padding: 20,
     borderRadius: 5,
     margin: 10,
-    width: '80%',
+    flex: 1,
+    height: Dimensions.get('window').width / 2 - 40,
+    justifyContent: 'center',
     alignItems: 'center',
   },
   buttonText: {

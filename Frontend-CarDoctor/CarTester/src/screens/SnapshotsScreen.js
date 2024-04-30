@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, ScrollView, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, TouchableOpacity, Text, ImageBackground } from 'react-native';
 import { auth } from '../config/firebaseConfig';
 import { useFocusEffect } from '@react-navigation/native'; // Import useFocusEffect
 
 const SnapshotsScreen = ({ navigation }) => {
     const [number, setNumber] = useState(0);
     const user = auth.currentUser;
+    const image = require("../../assets/bmw.jpg");
 
     useFocusEffect(
         React.useCallback(() => {
@@ -44,6 +45,7 @@ const SnapshotsScreen = ({ navigation }) => {
 
     return (
         <View style={styles.container}>
+            <ImageBackground source={image} style={styles.image}>
             <ScrollView contentContainerStyle={styles.scrollViewContainer}>
                 {numbers.map((snapshot, index) => (
                     <TouchableOpacity
@@ -56,6 +58,7 @@ const SnapshotsScreen = ({ navigation }) => {
                     </TouchableOpacity>
                 ))}
             </ScrollView>
+            </ImageBackground>
         </View>
     );
 };
@@ -64,19 +67,33 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
+        width: '100%',
+        
     },
     scrollViewContainer: {
         alignItems: 'center',
         paddingTop: 20,
     },
     button: {
-        backgroundColor: '#695585',
+        backgroundColor: 'hsl(198, 34%, 32%)',
         padding: 15,
-        borderRadius: 5,
+        borderRadius: 8,
         margin: 10,
-        width: '80%',
+        width: '100%',
+        height: 60,
         alignItems: 'center',
+        marginLeft: 150,
+        marginRight: 150,
+        opacity: 0.8,
     },
+    image: {
+        flex: 1,
+        width: null,
+        height: null,
+        justifyContent: 'center',
+        alignItems: 'center',
+        
+      },
     buttonText: {
         color: '#ffffff',
         fontSize: 18,
