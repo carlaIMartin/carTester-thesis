@@ -1,0 +1,45 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-size: cover;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: hsl(0, 0%, 77%);
+    opacity: 0.1;
+  }
+  
+  .category-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    padding: 20px;
+    width: 100%;
+  }
+  
+  .category-button {
+    background-color: #695585;
+    color: white;
+    border: none;
+    padding: 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    opacity: 0.6;
+  }
+  
+  .category-button.error {
+    background-color: #e51f1f;
+  }
+  
+  .category-button:hover {
+    opacity: 1;
+  }
+  

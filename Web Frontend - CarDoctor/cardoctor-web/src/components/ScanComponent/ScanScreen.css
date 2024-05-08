@@ -1,0 +1,56 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    margin-bottom: 0;
+  }
+  
+  .buttonContainer {
+    width: 100%;
+  }
+  
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 165, 0, 0.5);
+  }
+  
+  .imageBackground {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh; /* Full height */
+    background-size: cover;
+  }
+  
+  .touchableButton, .logoutButton {
+    width: 100%;
+    height: 70px;
+    margin-bottom: 5px;
+    background-color: hsl(195, 40%, 52%);
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    opacity: 0.9;
+    color: #5A190B;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .logoutButton {
+    margin-top: 180px;
+    background-color: #FF5733;
+    opacity: 0.7;
+  }
+  
+  .activityIndicator {
+    text-align: center;
+    color: #841584;
+    font-size: 20px;
+  }
+  
