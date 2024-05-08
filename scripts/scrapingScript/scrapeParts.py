@@ -26,5 +26,6 @@ def scrape_google_results(query):
         print("An error occurred:", e)
 
 if __name__ == "__main__":
-    query = sys.argv[1]
-    scrape_google_results(query+"car"+"parts")
+    query = sys.argv[1] + " " + sys.argv[2]
+    
+    scrape_google_results(query+ " " + "car"+ " " + "parts")

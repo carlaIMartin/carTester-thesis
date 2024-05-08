@@ -1,7 +1,9 @@
 package com.diagnosis.cardoctor.controllerMongo;
 
 import com.diagnosis.cardoctor.daoMongo.CodeDao;
+import com.diagnosis.cardoctor.daoMongo.UserCarsDao;
 import com.diagnosis.cardoctor.entityMongo.Codes;
+import com.diagnosis.cardoctor.entityMongo.UserCars;
 import com.diagnosis.cardoctor.service.PartsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,6 +22,9 @@ public class CodeController {
 
     @Autowired
     private CodeDao codeDao;
+
+    @Autowired
+    private UserCarsDao UserCarsDao;
 
     int number;
 
@@ -136,9 +141,14 @@ public class CodeController {
         return codeDao.findByCommandAndUser(command, username);
     }
 
-    @GetMapping("/scrapeParts/{part}")
-    public String scrapeParts(@PathVariable String part) throws IOException, InterruptedException {
-        return partsService.scrapeParts(part);
+    @GetMapping("/scrapeParts/{part}/{carBrand}")
+    public String scrapeParts(@PathVariable String part, @PathVariable String carBrand) throws IOException, InterruptedException {
+        return partsService.scrapeParts(part, carBrand);
+    }
+
+    @GetMapping("/getCarByUsername/{username}")
+    public List<UserCars> getCarByUsername(@PathVariable String username) {
+        return UserCarsDao.findCarByUsername(username);
     }
 
 }

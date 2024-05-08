@@ -19,4 +19,9 @@ public class CardoctorApplication {
 		return "Hello World!";
 	}
 
+	@GetMapping("/igen")
+	public String igen() {
+		return "This is the main back end!";
+	}
+
 }

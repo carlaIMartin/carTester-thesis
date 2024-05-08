@@ -1,7 +1,9 @@
 package com.diagnosis.cardoctor.controllerMongo;
 
 import com.diagnosis.cardoctor.daoMongo.CodeDao;
+import com.diagnosis.cardoctor.daoMongo.UserCarsDao;
 import com.diagnosis.cardoctor.entityMongo.Codes;
+import com.diagnosis.cardoctor.entityMongo.UserCars;
 import com.fasterxml.jackson.annotation.JsonIgnoreType;
 import org.bson.types.Code;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class ScanController {
 int check = 1;
     @Autowired
     private CodeDao codeDao;
+
+    @Autowired
+    private UserCarsDao userCarsDao;
 
 //    @PostMapping("/scanCodes")
 //    public ResponseEntity<String> scanCodes() {
@@ -45,6 +50,27 @@ int check = 1;
 //            return ResponseEntity.internalServerError().body("Error deleting code: " + e.getMessage());
 //        }
 //    }
+
+
+    @PostMapping("/registerUserCar/{userName}/{carBrand}")
+    public ResponseEntity<String> registerUserCar(
+            @PathVariable String userName,
+            @PathVariable String carBrand) {
+
+        // Create a new UserCars document with a unique ID
+        UserCars userCar = new UserCars();
+        userCar.setId(UUID.randomUUID().toString()); // Generate a unique identifier
+        userCar.setUsername(userName);
+        userCar.setCarBrand(carBrand);
+
+        // Save the UserCars document in the database
+        userCarsDao.save(userCar);
+
+        // Return a response indicating success
+        return ResponseEntity.ok("User car registered successfully with ID: " + userCar.getId());
+    }
+
+
 
     @PostMapping("/deleteById/{id}")
     public ResponseEntity<String> deleteById(@PathVariable String id)

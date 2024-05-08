@@ -14,19 +14,37 @@ const SignUpScreen = () => {
   const [password, setPassword] = useState('');
   const [carType, setCarType] = useState('');
 
-  const handleSignUp = (carType) => {
+  const handleSignUp = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log('Registered with:', user.email);
-
+        // Optionally add user to your database
         // db.collection('users').doc(user.uid).set({
         //   email: user.email,
         //   carType: carType,
         //   createdAt: firebase.firestore.FieldValue.serverTimestamp(),
         // });
+  
+        // Call your registerUserCar API
+        registerUserCar(email, carType);
       })
-      .catch(error => alert(error.message));
+      .catch(error => {
+        alert(error.message);
+      });
+  };
+  
+  const registerUserCar = (username, carBrand) => {
+    fetch(`http://192.168.68.1:8080/registerUserCar/${username}/${carBrand}` , {
+      method: 'POST',
+    })
+    .then(response => response.text())
+    .then(data => {
+      console.log('Car registered:', data);
+    })
+    .catch((error) => {
+      console.error('Error registering car:', error);
+    });
   };
 
   return (
@@ -51,13 +69,13 @@ const SignUpScreen = () => {
           />
         
 
-          {/* <TextInput
+          <TextInput
             placeholder="Car Type"
             value={carType}
             onChangeText={setCarType}
             style={styles.input}
             placeholderTextColor="#666"
-          /> */}
+          />
         </View>
         <TouchableOpacity style={styles.button} onPress={handleSignUp}>
           <Text style={styles.buttonText}>Sign Up</Text>

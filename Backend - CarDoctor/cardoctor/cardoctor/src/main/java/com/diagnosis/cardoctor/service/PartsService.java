@@ -398,8 +398,8 @@ public class PartsService {
         }
     }
 
-    public String scrapeParts (String part) throws InterruptedException, IOException {
-        ProcessBuilder processBuilder = new ProcessBuilder("D:/Anaconda3/python.exe", "D:\\LICENTA-CARDOCTOR\\scripts\\scrapingScript\\scrapeParts.py", part );
+    public String scrapeParts (String part, String carBrand) throws InterruptedException, IOException {
+        ProcessBuilder processBuilder = new ProcessBuilder("D:/Anaconda3/python.exe", "D:\\LICENTA-CARDOCTOR\\scripts\\scrapingScript\\scrapeParts.py", part, carBrand );
         Process process = processBuilder.start();
         StringBuilder output = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()))) {
