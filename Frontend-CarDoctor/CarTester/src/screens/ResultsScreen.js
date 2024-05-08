@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, TextInput, ImageBackground } from 'react-native';
 import { auth } from '../config/firebaseConfig';
 
 const ResultsScreen = ({ route, navigation }) => {
@@ -7,6 +7,8 @@ const ResultsScreen = ({ route, navigation }) => {
   const user = auth.currentUser;
   const [filteredData, setFilteredData] = useState([]);
   const [searchText, setSearchText] = useState('');
+
+  const image = require("../../assets/sportscar.jpg");
 
   useEffect(() => {
     console.log(data);
@@ -55,6 +57,7 @@ const ResultsScreen = ({ route, navigation }) => {
 
   return (
     <View style={styles.container}>
+      <ImageBackground source={image} style={styles.image}>
       <TextInput
         style={styles.searchBar}
         placeholder="Search by Name"
@@ -94,6 +97,7 @@ const ResultsScreen = ({ route, navigation }) => {
           </View>
         ))}
       </ScrollView>
+      </ImageBackground>
     </View>
   );
 };
@@ -106,11 +110,31 @@ const styles = StyleSheet.create({
   scrollViewContainer: {
     padding: 20,
   },
+  image: {
+    flex: 1,
+    width: null,
+    height: null,
+    justifyContent: 'center',
+    alignItems: 'center',
+    
+  },
+  searchBar: {
+    height: 50,
+    width: '90%',
+    borderColor: 'gray',
+    borderWidth: 1,
+    paddingLeft: 10,
+    margin: 10,
+    borderRadius: 10,
+    backgroundColor: '#ffffff',
+    opacity: 0.8,
+  },
   itemContainer: {
-    backgroundColor: '#f0f0f0',
+    backgroundColor: '#EAD7F5',
     padding: 20,
     marginVertical: 10,
     borderRadius: 5,
+    opacity: 0.9,
   },
   button: {
     backgroundColor: '#695585',
@@ -124,7 +148,8 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   problemContainer: {
-    backgroundColor: '#ffcccc',
+    backgroundColor: '#FB9DC8',
+    opacity: 0.9,
   },
   itemText: {
     fontSize: 20,
