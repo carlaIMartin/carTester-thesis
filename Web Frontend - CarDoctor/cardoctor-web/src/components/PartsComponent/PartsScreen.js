@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { auth } from '../config/firebaseConfig';
+import { useLocation, useNavigate } from 'react-router-dom';
+import './PartsScreen.css'; // Ensure you create this CSS file for styling
+import { auth } from '../../config/firebaseConfig';
 
-const PartsScreen = ({ route, navigation }) => {
-    const parts = route.params?.parts || [];
+const PartsScreen = () => {
+    const location = useLocation();
+    const parts = location && location.state ? location.state.parts : [];
     const [isLoading, setIsLoading] = useState(false); // New state variable for loading state
     const user = auth.currentUser;
+    const navigate = useNavigate();
 
     useEffect(() => {
         console.log(parts); 
@@ -27,7 +30,7 @@ const PartsScreen = ({ route, navigation }) => {
                 const categoryData = await responseCategory.json();
     
                 console.log('Suggestion is: ', { data: categoryData });
-                navigation.navigate('SuggestionScreen', { data: categoryData });
+                navigate('/SuggestionScreen', { state: { data: categoryData } });
             } else {
                 console.log('No car data found for user.');
             }
@@ -41,63 +44,30 @@ const PartsScreen = ({ route, navigation }) => {
 
     if (isLoading) {
         return (
-            <View style={[styles.container, styles.centered]}>
-                <ActivityIndicator size="large" color="#800080" />
-                <Text>Searching the web for parts</Text>
-            </View>
+            <div className="container centered">
+                <div className="loader"></div>
+                <p>Searching the web for parts</p>
+            </div>
         );
     }
 
     return (
-        <View style={styles.container}>
-            <ScrollView contentContainerStyle={styles.scrollViewContainer}>
+        <div className="container">
+            <div className="scrollViewContainer">
                 {parts.map((item, itemIndex) => (
                     Array.isArray(item.parts) && item.parts.map((part, partIndex) => (
-                        <TouchableOpacity 
+                        <button 
                             key={partIndex} 
-                            style={styles.button}
-                            onPress={() => handlePress(part)}
+                            className="button"
+                            onClick={() => handlePress(part)}
                         >
-                            <Text style={styles.buttonText}>{part}</Text>
-                        </TouchableOpacity>
+                            {part}
+                        </button>
                     ))
                 ))}
-            </ScrollView>
-        </View>
+            </div>
+        </div>
     );
 };
-
-    const styles = StyleSheet.create({
-        container: { 
-            flex: 1,
-            backgroundColor: '#fff',
-        },
-        centered: {
-            justifyContent: 'center',
-            alignItems: 'center',
-        },
-        scrollViewContainer: {
-            padding: 20,
-        },
-        itemContainer: {
-            backgroundColor: '#f0f0f0',
-            padding: 20,
-            marginVertical: 10,
-            borderRadius: 5,
-        },
-        button: {
-            backgroundColor: '#695585', 
-            padding: 10,
-            marginVertical: 5, 
-            borderRadius: 5,
-        },
-        buttonText: {
-            color: '#ffffff',
-            textAlign: 'center',
-            fontSize: 20,
-            
-        },
-    });
-
 
 export default PartsScreen;

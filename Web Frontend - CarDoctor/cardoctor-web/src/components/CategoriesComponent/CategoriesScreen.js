@@ -40,7 +40,7 @@ const CategoriesScreen = () => {
     try {
       const responseCategory = await fetch(`http://192.168.68.1:8080/codeTypeAndUser/${category}/${user.email}`);
       const data = await responseCategory.json();
-      navigate('/ResultsScreen', { state: { data } });
+      navigate('/results', { state: { data } });
     } catch (error) {
       console.error('There was an error fetching the data:', error);
     }

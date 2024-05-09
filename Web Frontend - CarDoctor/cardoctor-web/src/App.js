@@ -6,18 +6,20 @@ import { app, auth } from './config/firebaseConfig';
 // Import Screens
 import ScanScreen from './components/ScanComponent/ScanScreen';
 import CategoriesScreen from './components/CategoriesComponent/CategoriesScreen';
-// import ResultsScreen from './src/screens/ResultsScreen';
-// import PartsScreen from './src/screens/PartsScreen';
+import ResultsScreen from './components/ResultsComponent/ResultsScreen';
 import WelcomeScreen from './components/WelcomeComponent/WelcomeScreen';
 import LoginScreen from './components/LoginComponent/LoginScreen'; 
 import SignupScreen from './components/SignupComponent/SignupScreen'; 
 import ChartScreen from './components/ChartsComponent/ChartScreen'; 
-// import SnapshotsScreen from './src/screens/SnapshotsScreen';
-// import CodesSnapshotScreen from './src/screens/CodesSnapshotScreen';
-// import CodeChartScreen from './src/screens/CodeChartScreen';
-// import SuggestionScreen from './src/screens/SuggestionScreen';  
+import PartsScreen from './components/PartsComponent/PartsScreen';
+import CodeChartScreen from './components/CodeChartComponent/CodeChartScreen';
+
+// Import NavigationBar
+import NavigationBar from './components/NavigationBar';
 
 import './App.css'; // Make sure to create App.css for styles
+import SnapshotsScreen from './components/SnapshotsComponent/SnapshotsScreen';
+import CodesSnapshotScreen from './components/CodeSnapshotComponent/CodeSnapshotScreen';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -43,20 +45,18 @@ const App = () => {
 
   return (
     <BrowserRouter>
+      <NavigationBar />
       {user ? (
         <Routes>
           <Route path="/" element={<Navigate replace to="/scan" />} />
           <Route path="/scan" element={<ScanScreen />} />
           <Route path="/charts" element={<ChartScreen />} />
           <Route path="/categories" element={<CategoriesScreen />} />
-          {/* 
           <Route path="/results" element={<ResultsScreen />} />
-          <Route path="/parts" element={<PartsScreen />} />
-          
-          <Route path="/snapshots" element={<SnapshotsScreen />} />
-          <Route path="/codesnapshots" element={<CodesSnapshotScreen />} />
-          <Route path="/codechart" element={<CodeChartScreen />} />
-          <Route path="/suggestions" element={<SuggestionScreen />} /> */}
+          <Route path="snapshots" element={<SnapshotsScreen/>} />
+          <Route path="codessnapshotscreen" element={<CodesSnapshotScreen/>} />
+          <Route path="parts" element={<PartsScreen/>} />
+          <Route path="codechart" element={<CodeChartScreen/>} />
         </Routes>
       ) : (
         <Routes>

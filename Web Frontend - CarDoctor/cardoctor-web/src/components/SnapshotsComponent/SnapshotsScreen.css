@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-size: cover;
+    width: 100%;
+}
+
+.scrollViewContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    width: 100%;
+}
+
+.button {
+    background-color: hsl(198, 34%, 32%);
+    padding: 15px;
+    border-radius: 8px;
+    margin: 10px;
+    width: 80%; /* Adjust width as necessary */
+    opacity: 0.8;
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: center; /* Make sure text is centered */
+    display: flex; /* This ensures the content inside the button is centered */
+    justify-content: center;
+    align-items: center;
+}
+
+
+.buttonText {
+    color: #ffffff;
+}

@@ -40,6 +40,7 @@ const Scan = () => {
 
   const handleSnapshotPress = () => {
     console.log('Snapshot button pressed');
+    navigate('/snapshots');
     
   };
 
