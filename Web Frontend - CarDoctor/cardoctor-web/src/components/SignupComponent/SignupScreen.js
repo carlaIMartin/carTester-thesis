@@ -28,7 +28,7 @@ const SignUpScreen = () => {
   };
 
   const registerUserCar = (username, carBrand) => {
-    fetch(`http://your-api-endpoint/registerUserCar/${username}/${carBrand}`, {
+    fetch(`http://192.168.68.1:8080/registerUserCar/${username}/${carBrand}`, {
       method: 'POST',
     })
     .then(response => response.text())
