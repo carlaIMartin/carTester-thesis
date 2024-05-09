@@ -7,15 +7,7 @@
     background-size: cover;
   }
   
-  .overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: hsl(0, 0%, 77%);
-    opacity: 0.1;
-  }
+  
   
   .category-grid {
     display: grid;

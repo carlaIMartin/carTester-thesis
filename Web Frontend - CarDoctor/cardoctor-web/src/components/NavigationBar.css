@@ -1,9 +1,14 @@
 /* NavigationBar.css */
 
 nav {
-    background-color: transparent; /* transparent */
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #8eadac;
     padding: 10px;
-  }
+    padding-bottom: 20px; /* Add this line */
+    z-index: 1000;
+}
   
   nav ul {
     list-style-type: none;
@@ -18,12 +23,12 @@ nav {
   
   nav li a {
     display: block;
-    color: rgb(46, 10, 10); /* opaque */
+    color: rgb(148, 114, 114); /* opaque */
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
   }
   
   nav li a:hover {
-    background-color: #111;
+    background-color: #b98787;
   }

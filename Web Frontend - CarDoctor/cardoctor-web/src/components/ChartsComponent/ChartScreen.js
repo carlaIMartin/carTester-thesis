@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import useCodeType from '../../hooks/useCodeType'; 
 import { auth } from '../../config/firebaseConfig';
+import './ChartScreen.css';
 
 const ChartScreen = () => {
     const { handleCodeData } = useCodeType();
@@ -64,7 +65,7 @@ const ChartScreen = () => {
                             <XAxis dataKey="orderNumber" />
                             <YAxis />
                             <Tooltip />
-                            <Bar dataKey="response_code" fill="#8884d8" />
+                            <Bar dataKey="response_code" fill="hsl(195, 40%, 52%)" />
                         </BarChart>
                     </ResponsiveContainer>
                 </div>

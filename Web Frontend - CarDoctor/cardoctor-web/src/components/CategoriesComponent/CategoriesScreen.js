@@ -48,7 +48,7 @@ const CategoriesScreen = () => {
 
   return (
     <div className="container" style={{ backgroundImage: `url(${image})` }}>
-      <div className="overlay"></div>
+      {/* <div className="overlay"></div> */}
       <div className="category-grid">
         {categories.map((item, index) => (
           <button

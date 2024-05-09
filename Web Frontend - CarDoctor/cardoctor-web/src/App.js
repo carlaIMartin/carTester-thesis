@@ -13,6 +13,7 @@ import SignupScreen from './components/SignupComponent/SignupScreen';
 import ChartScreen from './components/ChartsComponent/ChartScreen'; 
 import PartsScreen from './components/PartsComponent/PartsScreen';
 import CodeChartScreen from './components/CodeChartComponent/CodeChartScreen';
+import SuggestionScreen from './components/SuggestionComponent/SuggestionScreen';
 
 // Import NavigationBar
 import NavigationBar from './components/NavigationBar';
@@ -57,6 +58,7 @@ const App = () => {
           <Route path="codessnapshotscreen" element={<CodesSnapshotScreen/>} />
           <Route path="parts" element={<PartsScreen/>} />
           <Route path="codechart" element={<CodeChartScreen/>} />
+          <Route path="suggestionscreen" element={<SuggestionScreen/>} />
         </Routes>
       ) : (
         <Routes>

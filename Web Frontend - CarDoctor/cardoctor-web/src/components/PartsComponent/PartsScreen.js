@@ -30,7 +30,7 @@ const PartsScreen = () => {
                 const categoryData = await responseCategory.json();
     
                 console.log('Suggestion is: ', { data: categoryData });
-                navigate('/SuggestionScreen', { state: { data: categoryData } });
+                navigate('/suggestionscreen', { state: { data: categoryData } });
             } else {
                 console.log('No car data found for user.');
             }
