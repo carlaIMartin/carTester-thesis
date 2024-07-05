@@ -4,8 +4,9 @@ import './CategoriesScreen.css';
 import { auth } from '../../config/firebaseConfig';
 
 const categories = ['Engine', 'Sensors', 'ECU', 'Cluster', 'Nox', 'Chassis', "Unknown"];
-const image = require("../../assets/sportscar.jpg"); 
+
 const CategoriesScreen = () => {
+  const image = require("../../assets/nissan.jpg"); 
   const [categoriesWithProblems, setCategoriesWithProblems] = useState([]);
   const navigate = useNavigate();
   const user = auth.currentUser;

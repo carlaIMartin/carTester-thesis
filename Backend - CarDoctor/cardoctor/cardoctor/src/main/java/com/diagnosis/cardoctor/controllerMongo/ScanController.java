@@ -86,21 +86,12 @@ int check = 1;
     @PostMapping("/scanCodes/{username}")
     public ResponseEntity<String> scanCodesUser(@PathVariable String username) {
         try {
-
             String result = executePythonScript(username);
-
-
             List<Codes> codes = codeDao.findAllByUsername(username);
-
-
             Map<String, List<Codes>> commandMap = new HashMap<>();
-
-
             for (Codes code : codes) {
                 commandMap.computeIfAbsent(code.getCommand(), k -> new ArrayList<>()).add(code);
             }
-
-
             for (Map.Entry<String, List<Codes>> entry : commandMap.entrySet()) {
                 List<Codes> codeList = entry.getValue();
                 codeList.sort(Comparator.comparingInt(Codes::getOrderNumber));
@@ -110,8 +101,6 @@ int check = 1;
                     codeList.get(i).setOrderNumber(i + 1);
                 }
             }
-
-
             for (Codes code : codes) {
                 codeDao.save(code);
             }
@@ -133,7 +122,6 @@ int check = 1;
                 output.append(line).append("\n");
             }
         }
-
         try (BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()))) {
             String line;
             if ((line = errorReader.readLine()) != null) {
@@ -144,7 +132,6 @@ int check = 1;
                 return "Error: " + errorOutput.toString();
             }
         }
-
         int exitVal = process.waitFor();
         if (exitVal == 0) {
             return output.toString();

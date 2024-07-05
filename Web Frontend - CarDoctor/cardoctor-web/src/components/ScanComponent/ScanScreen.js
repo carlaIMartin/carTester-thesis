@@ -45,8 +45,8 @@ const Scan = () => {
   };
 
   return (
-    <div className="imageBackground" style={{ backgroundImage: `url(${require("../../assets/bmw1.jpg")})` }}>
-      <div className="overlay"></div>
+    <div className="imageBackground" style={{ backgroundImage: `url(${require("../../assets/mustang.jpg")})` }}>
+      {/* <div className="overlay"></div> */}
       <div className="container">
         <div className="buttonContainer">
           {isSubmitting ? (

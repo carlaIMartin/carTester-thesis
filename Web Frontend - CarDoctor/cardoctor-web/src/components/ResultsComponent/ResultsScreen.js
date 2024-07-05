@@ -55,7 +55,7 @@ const ResultsScreen = () => {
   };
 
   return (
-    <div className="container" style={{ backgroundImage: `url(${require("../../assets/sportscar.jpg")})` }}>
+    <div className="container" style={{ backgroundImage: `url(${require("../../assets/mustang.jpg")})` }}>
       <input
         type="text"
         className="searchBar"

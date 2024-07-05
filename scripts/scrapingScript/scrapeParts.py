@@ -10,7 +10,7 @@ def scrape_google_results(query):
         # Loop through the search results and print the titles
         for idx, title in enumerate(search_results, start=1):
             # print(f" {title}")
-            # Create a list to store the search results
+            
             results = []
 
             # Loop through the search results and add them to the list

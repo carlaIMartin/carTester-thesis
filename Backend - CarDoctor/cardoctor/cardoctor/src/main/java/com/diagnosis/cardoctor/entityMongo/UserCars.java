@@ -30,11 +30,7 @@ public class UserCars
             this.carBrand = newUserCar.getCarBrand();
         }
 
-
     }
-
-
-
     public void setCarBrand(String carBrand, String username) {
         this.carBrand = carBrand;
         this.username = username;

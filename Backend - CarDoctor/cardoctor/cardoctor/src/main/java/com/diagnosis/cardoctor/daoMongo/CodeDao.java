@@ -13,6 +13,9 @@ import java.util.Optional;
 @Repository
 public interface CodeDao extends MongoRepository<Codes,String> {
 
+    @Query(value="{'username' :  ?0}", fields="{ 'command' : 1, '_id' : 1,  response_code : 1, description : 1, timestamp : 1, type : 1, problem : 1, username : 1, 'orderNumber' : 1}")
+    List<Codes> findAllByUsername(String username);
+
     void deleteByOrderNumber(int orderNumber);
 
     void deleteById(String id);
@@ -29,8 +32,7 @@ public interface CodeDao extends MongoRepository<Codes,String> {
     @Query(value="{ 'type' : ?0, 'username' : ?1 }", fields="{ 'command' : 1, '_id' : 1, 'response_code' : 1, 'description' : 1, 'timestamp' : 1, 'type' : 1, 'problem' : 1, 'username' : 1, 'orderNumber' : 1}")
     List<Codes> findByTypeAndUser(String type, String username);
 
-    @Query(value="{'username' :  ?0}", fields="{ 'command' : 1, '_id' : 1,  response_code : 1, description : 1, timestamp : 1, type : 1, problem : 1, username : 1, 'orderNumber' : 1}")
-    List<Codes> findAllByUsername(String username);
+
 
     @Query(value="{'username' :  ?0}", fields="{ 'command' : 1, '_id' : 1,  response_code : 1, description : 1, timestamp : 1, type : 1, problem : 1, username : 1, 'orderNumber' : 1}")
     Page<Codes> findAllByUsernamePageable(String username, Pageable pageable);

@@ -32,20 +32,33 @@
     width: 100%;
     height: 70px;
     margin-bottom: 5px;
-    background-color: hsl(195, 40%, 52%);
     justify-content: center;
     align-items: center;
     border-radius: 10px;
-    opacity: 0.9;
-    color: #5A190B;
+    opacity: 0.8;
     font-size: 16px;
     font-weight: bold;
+    background-color: rgba(95, 158, 160, 0.5); /* semi-transparent */
+    color: #000;
+    
+    
   }
   
   .logoutButton {
     margin-top: 180px;
-    background-color: #FF5733;
+    /* background-color: #FF5733; */
     opacity: 0.7;
+    background-color: rgba(255, 87, 51, 0.5); /* semi-transparent */
+  }
+
+  .touchableButton:hover, .logoutButton:hover {
+    /* Add your hover styles here. For example: */
+    opacity: 1;
+    background-color: rgba(95, 158, 160, 0.8); /* less transparent */
+  }
+  
+  .logoutButton:hover {
+    background-color: rgba(255, 87, 51, 0.8); /* less transparent */
   }
   
   .activityIndicator {
