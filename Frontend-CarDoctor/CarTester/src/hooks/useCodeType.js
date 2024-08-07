@@ -19,10 +19,10 @@ const useCodeType = () => {
       }
 
       const result = await codesResponse.json();
-      return result; // Return result for use in the component
+      return result; 
     } catch (error) {
       Alert.alert('Error', error.message || 'Failed to fetch data', [{ text: 'OK' }]);
-      throw error; // Rethrow to handle it in the component
+      throw error; 
     }
   };
 
@@ -38,11 +38,11 @@ const useCodeType = () => {
       }
       const result = await response.json();
       console.log('igensss:', result);
-      return result; // Return result for use in the component
+      return result; 
       
     } catch (error) {
       Alert.alert('Error', error.message || 'Failed to fetch data', [{ text: 'OK' }]);
-      throw error; // Rethrow to handle it in the component
+      throw error; 
     }
   };
 

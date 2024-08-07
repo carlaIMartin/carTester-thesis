@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import './ResultsScreen.css'; // Ensure you create this CSS file
+import './ResultsScreen.css'; 
 import { auth } from '../../config/firebaseConfig';
 
 const ResultsScreen = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { data } = location.state || { data: [] }; // Using React Router's location state
+  const { data } = location.state || { data: [] }; 
   const user = auth.currentUser;
   const [filteredData, setFilteredData] = useState([]);
   const [searchText, setSearchText] = useState('');

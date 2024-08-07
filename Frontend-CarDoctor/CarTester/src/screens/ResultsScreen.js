@@ -25,7 +25,7 @@ const ResultsScreen = ({ route, navigation }) => {
     });
 
     const sortedData = [...highestOrderItems.values()].sort((a, b) => {
-      return b.problem - a.problem; // true values (problems) are considered 'greater' than false
+      return b.problem - a.problem; 
     });
 
     setFilteredData(sortedData);

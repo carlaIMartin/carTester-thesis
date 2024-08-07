@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { app, auth } from './config/firebaseConfig';
 
-// Import Screens
 import ScanScreen from './components/ScanComponent/ScanScreen';
 import CategoriesScreen from './components/CategoriesComponent/CategoriesScreen';
 import ResultsScreen from './components/ResultsComponent/ResultsScreen';
@@ -15,10 +14,9 @@ import PartsScreen from './components/PartsComponent/PartsScreen';
 import CodeChartScreen from './components/CodeChartComponent/CodeChartScreen';
 import SuggestionScreen from './components/SuggestionComponent/SuggestionScreen';
 
-// Import NavigationBar
 import NavigationBar from './components/NavigationBar';
 
-import './App.css'; // Make sure to create App.css for styles
+import './App.css'; 
 import SnapshotsScreen from './components/SnapshotsComponent/SnapshotsScreen';
 import CodesSnapshotScreen from './components/CodeSnapshotComponent/CodeSnapshotScreen';
 

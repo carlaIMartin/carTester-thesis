@@ -21,14 +21,14 @@
     padding: 15px;
     border-radius: 8px;
     margin: 10px;
-    width: 80%; /* Adjust width as necessary */
+    width: 80%; 
     opacity: 0.8;
     color: #ffffff;
     font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    text-align: center; /* Make sure text is centered */
-    display: flex; /* This ensures the content inside the button is centered */
+    text-align: center; 
+    display: flex; 
     justify-content: center;
     align-items: center;
 }

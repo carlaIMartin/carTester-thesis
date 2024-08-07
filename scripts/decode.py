@@ -7,10 +7,10 @@ from obd.utils import bytes_to_int
 # WORKSSSSSSS
 def rpm(messages):
     """ decoder for RPM messages """
-    d = messages[0].data # only operate on a single message
-    d = d[2:] # chop off mode and PID bytes
-    v = bytes_to_int(d) / 4.0  # helper function for converting byte arrays to ints
-    return v  # construct a Pint Quantity
+    d = messages[0].data 
+    d = d[2:] 
+    v = bytes_to_int(d) / 4.0  
+    return v  
 
 c = OBDCommand("RPM", \
                "RPM", \

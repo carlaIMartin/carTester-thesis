@@ -77,7 +77,7 @@ const ChartScreen = () => {
                             data={responseCodes}
                             contentInset={{ top: 20, bottom: 20 }}
                             svg={{ fontSize: 10, fill: 'black' }}
-                            numberOfTicks={5}  // Adjust number of ticks as needed
+                            numberOfTicks={5}  
                             formatLabel={(value) => `${value}`}
                             style={{ marginBottom: -20 }}
                         />

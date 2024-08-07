@@ -28,45 +28,21 @@ int check = 1;
     @Autowired
     private UserCarsDao userCarsDao;
 
-//    @PostMapping("/scanCodes")
-//    public ResponseEntity<String> scanCodes() {
-//        try {
-//
-//            String result = executePythonScript();
-//            return ResponseEntity.ok(result); // Return the result from the script execution
-//        } catch (IOException | InterruptedException e) {
-//            e.printStackTrace();
-//            return ResponseEntity.internalServerError().body("Error executing script: " + e.getMessage());
-//        }
-//    }
-
-//    @PostMapping("/deleteCode/{orderNumber}")
-//    public ResponseEntity<String> deleteCode(@PathVariable int orderNumber) {
-//        try {
-//            codeDao.deleteByOrderNumber(orderNumber);
-//            return ResponseEntity.ok("Code with order number " + orderNumber + " deleted successfully.");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.internalServerError().body("Error deleting code: " + e.getMessage());
-//        }
-//    }
-
 
     @PostMapping("/registerUserCar/{userName}/{carBrand}")
     public ResponseEntity<String> registerUserCar(
             @PathVariable String userName,
             @PathVariable String carBrand) {
 
-        // Create a new UserCars document with a unique ID
+
         UserCars userCar = new UserCars();
-        userCar.setId(UUID.randomUUID().toString()); // Generate a unique identifier
+        userCar.setId(UUID.randomUUID().toString());
         userCar.setUsername(userName);
         userCar.setCarBrand(carBrand);
 
-        // Save the UserCars document in the database
+
         userCarsDao.save(userCar);
 
-        // Return a response indicating success
         return ResponseEntity.ok("User car registered successfully with ID: " + userCar.getId());
     }
 

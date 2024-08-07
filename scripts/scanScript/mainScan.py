@@ -14,13 +14,13 @@ from commands import defineCommands
 
 # ------------------------ MONGODB -------------------------
 
-# DATABASE INITIALIZATION + FUNCTION TO ADD IN DB 
+#DATABASE INITIALIZATION + FUNCTION TO ADD IN DB 
 
 client = pymongo.MongoClient("mongodb+srv://martincarla05:root@cardoctor.cbn2jcl.mongodb.net/")
 db = client["ecu_codes"]
 collection = db["codes"]
 
-# Function - inserting the data into MongoDB
+#Function - inserting the data into MongoDB
 
 def insert_into_mongodb(data):
     try:
@@ -29,7 +29,7 @@ def insert_into_mongodb(data):
     except Exception as e:
         print(f"Error inserting data into MongoDB: {e}")
 
-# Function - clear the collection every time we run the script
+
 
 def clear_mongodb_collection():
     try:
@@ -104,7 +104,7 @@ try:
 
         # ----------------------- ADDING DATA TO DATABASE -----------------------
 
-        # The username field will be called in the future from the user's session (rest api gets the username from the frontend scan button hook)
+        
         for parameter in parameters_to_query:
             response=connection.query(parameter)
             print( findCommandType(parameter.name) )

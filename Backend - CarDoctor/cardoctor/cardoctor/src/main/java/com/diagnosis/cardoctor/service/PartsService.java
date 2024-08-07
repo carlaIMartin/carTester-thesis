@@ -34,8 +34,8 @@ public class PartsService {
         Set<String> handledCommands = new HashSet<>();
 
         for (Codes code : codes) {
-            if (code.getProblem() && code.getUsername().equals(username)) { // Check if the code has a problem and belongs to the user
-                if (!handledCommands.contains(code.getCommand())) { // Process the command only if it hasn't been handled yet
+            if (code.getProblem() && code.getUsername().equals(username)) {
+                if (!handledCommands.contains(code.getCommand())) {
                     Map<String, Object> problemDetails = new HashMap<>();
                     switch (code.getCommand()) {
                         case "FUEL_INJECT_TIMING":
@@ -376,24 +376,24 @@ public class PartsService {
                             break;
 
 
-// Continue with the format as needed for other response codes.
+
 
 
 
                     }
-                    // Only add the problemDetails map to the problems list if it's not empty
+
                     if (!problemDetails.isEmpty()) {
                         problems.add(problemDetails);
-                        handledCommands.add(code.getCommand()); // Mark this command as handled
+                        handledCommands.add(code.getCommand());
                     }
                 }
             }
         }
         if (problems.isEmpty()) {
-            // If no codes with problems were found, return an appropriate response
+
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
-            // Return the list of problems, wrapped in a ResponseEntity
+
             return new ResponseEntity<>(problems, HttpStatus.OK);
         }
     }

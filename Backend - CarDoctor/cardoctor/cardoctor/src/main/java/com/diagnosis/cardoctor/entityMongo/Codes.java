@@ -74,7 +74,7 @@ public class Codes {
         this.snapshot = snapshot;
     }
 
-    //create delete function that deletes the element from the db
+
 
 
 

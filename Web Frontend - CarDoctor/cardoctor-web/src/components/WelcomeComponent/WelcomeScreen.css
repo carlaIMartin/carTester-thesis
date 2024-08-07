@@ -48,8 +48,8 @@
 .button {
   background-color: #E5C3BB;
   color: #5A190B;
-  width: 70% !important; /* Reduce width */
-  padding: 30px !important; /* Increase padding for height */
+  width: 70% !important; 
+  padding: 30px !important; 
   border-radius: 110px;
   margin: 5px;
   font-size: 18px;

@@ -6,10 +6,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
-// Import your Firebase config
+
 import {app} from './src/config/firebaseConfig';
 
-// Import Screens
+
 import Scan from './src/screens/ScanScreen';
 import CategoriesScreen from './src/screens/CategoriesScreen';
 import ResultsScreen from './src/screens/ResultsScreen';
@@ -85,7 +85,7 @@ const App = () => {
             tabBarActiveTintColor: 'black', 
             tabBarInactiveTintColor: 'gray', 
             tabBarStyle: {
-              backgroundColor: 'rgba(255, 255, 255, 0.2)', // Semi-transparent white background
+              backgroundColor: 'rgba(255, 255, 255, 0.2)', 
               display: 'flex'
             },
           }}

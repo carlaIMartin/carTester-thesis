@@ -19,7 +19,6 @@ const SignUpScreen = () => {
       .then((userCredentials) => {
         const user = userCredentials.user;
         console.log('Registered with:', user.email);
-        // Optionally add user to your database
         // db.collection('users').doc(user.uid).set({
         //   email: user.email,
         //   carType: carType,

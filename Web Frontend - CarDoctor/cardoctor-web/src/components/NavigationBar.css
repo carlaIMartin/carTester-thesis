@@ -1,4 +1,3 @@
-/* NavigationBar.css */
 
 nav {
     position: fixed;
@@ -6,7 +5,7 @@ nav {
     width: 100%;
     background-color: #8eadac;
     padding: 10px;
-    padding-bottom: 20px; /* Add this line */
+    padding-bottom: 20px; 
     z-index: 1000;
 }
   
@@ -23,7 +22,7 @@ nav {
   
   nav li a {
     display: block;
-    color: rgb(148, 114, 114); /* opaque */
+    color: rgb(148, 114, 114); 
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;

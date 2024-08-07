@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, ActivityIndicator, ImageBackground } from 'react-native';
 import { signOut } from 'firebase/auth';
-import { auth } from '../config/firebaseConfig'; // Make sure this path is correct
+import { auth } from '../config/firebaseConfig'; 
 import useScanCodes from '../hooks/useScanCodes';
 import { useNavigation } from '@react-navigation/native';
 

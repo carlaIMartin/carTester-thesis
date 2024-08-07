@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import './SuggestionScreen.css'; // Ensure you create this CSS file for styling
+import './SuggestionScreen.css'; 
 
 const SuggestionScreen = () => {
     const location = useLocation();

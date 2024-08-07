@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import './CodeSnapshotScreen.css'; // Ensure you create this CSS file for styling
+import './CodeSnapshotScreen.css'; 
 import { auth } from '../../config/firebaseConfig';
 
 const CodesSnapshotScreen = () => {

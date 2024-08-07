@@ -3,7 +3,7 @@ import { initializeAuth, getReactNativePersistence } from 'firebase/auth'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import {REACT_APP_FIREBASE_API_KEY, REACT_APP_FIREBASE_AUTH_DOMAIN,REACT_APP_FIREBASE_PROJECTID,REACT_APP_FIREBASE_STORAGEBUCKET, REACT_APP_FIREBASE_MESSAGINGSENDERID, REACT_APP_FIREBASE_APPID } from '@env'
 
-// Your web app's Firebase configuration
+
 const firebaseConfig = {
   apiKey: REACT_APP_FIREBASE_API_KEY,
   authDomain: REACT_APP_FIREBASE_AUTH_DOMAIN,
@@ -14,7 +14,7 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-// Initialize Firebase Auth with AsyncStorage for persistence
+
 const auth = initializeAuth(app, {
   persistence: getReactNativePersistence(AsyncStorage)
 });

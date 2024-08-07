@@ -13,7 +13,7 @@ public class MongoDBConnectionChecker implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        // Check MongoDB connection when the application starts
+
         try {
             mongoTemplate.getDb().getName();
             System.out.println("Connected to MongoDB!");

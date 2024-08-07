@@ -17,7 +17,7 @@ const CodeChartScreen = ({ route }) => {
                 const data = await response.json();
                 setCommands(data.map(item => ({
                     ...item,
-                    response_code: parseFloat(item.response_code) // Convert to number
+                    response_code: parseFloat(item.response_code) 
                 })));
                 setLoading(false);
             } catch (error) {
@@ -37,7 +37,7 @@ const CodeChartScreen = ({ route }) => {
         );
     }
 
-    // Prepare data for the chart
+   
     const chartData = commands.map(c => ({
         value: c.response_code,
         svg: {
@@ -45,7 +45,7 @@ const CodeChartScreen = ({ route }) => {
         },
     }));
 
-    // Calculate min and max for the Y-axis
+    //Calculating the min and max for the Y-axis
     const yMin = Math.min(...chartData.map(c => c.value));
     const yMax = Math.max(...chartData.map(c => c.value));
 

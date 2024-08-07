@@ -33,11 +33,11 @@ const useScanCodes = () => {
 
       const result = await codes.json();
       setResult(result);
-      alert('Success: Code scanned successfully!'); // Using browser alert
+      alert('Success: Code scanned successfully!'); 
       console.log(result);
 
     } catch (error) {
-      alert('Error: Failed to scan the code!'); // Using browser alert
+      alert('Error: Failed to scan the code!'); 
       console.error(error);
     } finally {
       setIsSubmitting(false);

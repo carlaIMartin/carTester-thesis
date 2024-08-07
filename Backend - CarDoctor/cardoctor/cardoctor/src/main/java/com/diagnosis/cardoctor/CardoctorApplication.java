@@ -11,7 +11,7 @@ public class CardoctorApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(CardoctorApplication.class, args);
-		System.out.println("IGEN!");
+		System.out.println("WORKS!");
 	}
 
 	@GetMapping("/")

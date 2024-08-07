@@ -4,7 +4,7 @@ import { auth } from '../config/firebaseConfig';
 
 const PartsScreen = ({ route, navigation }) => {
     const parts = route.params?.parts || [];
-    const [isLoading, setIsLoading] = useState(false); // New state variable for loading state
+    const [isLoading, setIsLoading] = useState(false); 
     const user = auth.currentUser;
 
     useEffect(() => {
@@ -12,17 +12,17 @@ const PartsScreen = ({ route, navigation }) => {
     }, [parts]);
 
     const handlePress = async (part) => {
-        setIsLoading(true); // Set loading state to true before fetching data
+        setIsLoading(true);
     
         try {
-            // First API call to fetch car details including carBrand
+            
             const response = await fetch(`http://192.168.68.1:8080/getCarByUsername/${user.email}`);
-            const carDataArray = await response.json(); // This is an array based on your screenshot
+            const carDataArray = await response.json(); 
             if (carDataArray.length > 0) {
-                const carBrand = carDataArray[0].carBrand; // Access the carBrand from the first object in the array
+                const carBrand = carDataArray[0].carBrand;
                 console.log('Car brand is: ', carBrand);
     
-                // Second API call using the fetched carBrand
+                
                 const responseCategory = await fetch(`http://192.168.68.1:8080/scrapeParts/${part}/${carBrand}`);
                 const categoryData = await responseCategory.json();
     
@@ -35,7 +35,7 @@ const PartsScreen = ({ route, navigation }) => {
         } catch (error) {
             console.error('There was an error fetching the data:', error);
         } finally {
-            setIsLoading(false); // Set loading state to false after fetching data
+            setIsLoading(false); 
         }
     };
 

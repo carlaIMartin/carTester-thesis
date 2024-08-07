@@ -17,7 +17,7 @@ const CodeChartScreen = () => {
                 const data = await response.json();
                 setCommands(data.map(item => ({
                     ...item,
-                    response_code: parseFloat(item.response_code) // Convert to number
+                    response_code: parseFloat(item.response_code)
                 })));
                 setLoading(false);
             } catch (error) {
@@ -37,7 +37,6 @@ const CodeChartScreen = () => {
         );
     }
 
-    // Prepare data for the chart
     const chartData = commands.map(c => ({
         name: c.orderNumber.toString(),
         value: c.response_code,

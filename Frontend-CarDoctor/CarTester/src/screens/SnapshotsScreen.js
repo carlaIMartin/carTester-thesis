@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, ScrollView, TouchableOpacity, Text, ImageBackground } from 'react-native';
 import { auth } from '../config/firebaseConfig';
-import { useFocusEffect } from '@react-navigation/native'; // Import useFocusEffect
+import { useFocusEffect } from '@react-navigation/native'; 
 
 const SnapshotsScreen = ({ navigation }) => {
     const [number, setNumber] = useState(0);
@@ -22,12 +22,12 @@ const SnapshotsScreen = ({ navigation }) => {
                     }
                 } else {
                     console.log('User not found');
-                    setNumber(0); // Reset number or handle accordingly when there is no user logged in
+                    setNumber(0); 
                 }
             };
 
             getMaxNumber();
-        }, [user]) // Dependency array includes user, effect reruns when user changes
+        }, [user]) 
     );
 
     const handleSnapshotPress = async (orderNumber) => {
