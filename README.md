@@ -1,9 +1,6 @@
 # CarDoctor - Diploma Thesis by Martin Carla Iulia
-## _*PROPERTY OF THE TECHNICAL UNIVERSITY OF CLUJ-NAPOCA*_
 This is the Bachelor's degree diploma thesis I created for getting my engineering degree from the Faculty of Automation and Computer Science, UTCN.
-
-
-
+## _*PROPERTY OF THE TECHNICAL UNIVERSITY OF CLUJ-NAPOCA*_
 ### What does the app do?
   The CarDoctor application is designed to offer a range of features to facilitate vehicle 
 diagnostics and maintenance. Key functionalities include the ability to perform 
