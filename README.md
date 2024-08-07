@@ -1,4 +1,4 @@
-# CarDoctor - Thesis by Martin Carla Iulia
+# CarDoctor - Diploma Thesis by Martin Carla Iulia
 ## _*PROPERTY OF THE TECHNICAL UNIVERSITY OF CLUJ-NAPOCA*_
 
 
